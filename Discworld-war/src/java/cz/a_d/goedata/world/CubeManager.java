@@ -62,6 +62,7 @@ public class CubeManager implements Serializable {
         cubeEM.create(tmpCube);
         RequestContext requestContext = RequestContext.getCurrentInstance();
         requestContext.execute(String.format("window.addObject('%s')", convert.convert(tmpCube)));
+        tmpCube = new Cube();
     }
 
     public Cube getTmpCube() {

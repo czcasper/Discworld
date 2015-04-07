@@ -70,7 +70,11 @@ public class CubeToX3dom {
         Node retValue;
         Element transform = doc.createElement("transform");
         transform.setAttribute("translation", String.format("%d %d %d", c.getxAxis(), c.getyAxis(), c.getzAxis()));
-
+        Long id = c.getId();
+        if(id!=null){
+            transform.setAttribute("id", id.toString());
+        }
+        
         Element shape = doc.createElement("shape");
         Element appearance = doc.createElement("appearance");
         Element material = doc.createElement("material");
