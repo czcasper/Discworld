@@ -2,16 +2,23 @@
  */
 package cz.a_d.goedata.world;
 
-import cz.a_d.discoworld.geodata.Cube;
-import cz.a_d.discoworld.x3dom.CubeToX3dom;
+import cz.a_d.discworld.geodata.Cube;
+import cz.a_d.discworld.x3dom.CubeToX3dom;
 import cz.a_d.discworld.facades.CubeFacade;
+import cz.a_d.discworld.geodata.CubeID;
+import cz.a_d.exceptions.ejb.RootCauseInfoException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import org.primefaces.context.RequestContext;
 
@@ -21,6 +28,7 @@ import org.primefaces.context.RequestContext;
  */
 @Named(value = "cubeManager")
 @SessionScoped
+@DeclareRoles("Admin")
 public class CubeManager implements Serializable {
 
     @EJB
@@ -31,13 +39,13 @@ public class CubeManager implements Serializable {
     @EJB
     protected CubeFacade cubeEM;
 
-    protected Cube tmpCube;
+    protected CubeID tmpCubeID;
 
     /**
      * Creates a new instance of CubeManager
      */
     public CubeManager() {
-        tmpCube = new Cube();
+        tmpCubeID = new CubeID();
     }
 
     @PostConstruct
@@ -57,19 +65,38 @@ public class CubeManager implements Serializable {
         return convert.convert(cubes);
     }
 
+    @RolesAllowed("Admin")
     public void createCube(ActionEvent event) {
-        cubes.add(new Cube(tmpCube));
-        cubeEM.create(tmpCube);
-        RequestContext requestContext = RequestContext.getCurrentInstance();
-        requestContext.execute(String.format("window.addObject('%s')", convert.convert(tmpCube)));
-        tmpCube = new Cube();
+        Cube tmp = new Cube();
+        tmp.setId(new CubeID(tmpCubeID));
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            cubeEM.create(tmp);
+            cubeEM.flush();
+            RequestContext requestContext = RequestContext.getCurrentInstance();
+            requestContext.execute(String.format("window.addObject('%s')", convert.convert(tmp)));
+            requestContext.execute("PF('cubeCreationDialog').hide()");
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cube has been created successfully", tmp.toString()));
+        } catch (EJBException ex) {
+            RootCauseInfoException reason = new RootCauseInfoException("Failed to create cube. ", ex);
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Cube creation has failed", reason.getLocalizedMessage()));
+            context.validationFailed();
+        }
     }
 
-    public Cube getTmpCube() {
-        return tmpCube;
+    public CubeID getTmpCube() {
+        return tmpCubeID;
     }
 
-    public void setTmpCube(Cube tmpCube) {
-        this.tmpCube = tmpCube;
+    public void setTmpCube(CubeID tmpCubeID) {
+        this.tmpCubeID = tmpCubeID;
+    }
+
+    public long getMaxLong() {
+        return Long.MAX_VALUE;
+    }
+
+    public long getMixLong() {
+        return Long.MIN_VALUE;
     }
 }

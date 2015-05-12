@@ -1,6 +1,6 @@
 /*
  */
-package cz.a_d.discoworld.geodata;
+package cz.a_d.discworld.geodata;
 
 import java.awt.Color;
 import java.io.Serializable;

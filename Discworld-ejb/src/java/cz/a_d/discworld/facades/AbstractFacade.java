@@ -7,6 +7,8 @@ package cz.a_d.discworld.facades;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 
 /**
  *
@@ -36,7 +38,7 @@ public abstract class AbstractFacade<T> {
     public T find(Object id) {
         return getEntityManager().find(entityClass, id);
     }
-    
+
     public void flush() {
         getEntityManager().flush();
     }
@@ -63,5 +65,5 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-    
+
 }

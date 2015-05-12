@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.a_d.discoworld.geodata;
+package cz.a_d.discworld.geodata;
 
 import java.io.Serializable;
 import java.util.Date;

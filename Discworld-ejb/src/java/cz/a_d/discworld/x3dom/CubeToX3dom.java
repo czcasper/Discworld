@@ -1,8 +1,9 @@
 /*
  */
-package cz.a_d.discoworld.x3dom;
+package cz.a_d.discworld.x3dom;
 
-import cz.a_d.discoworld.geodata.Cube;
+import cz.a_d.discworld.geodata.Cube;
+import cz.a_d.discworld.geodata.CubeID;
 import java.io.StringWriter;
 import java.util.List;
 import java.util.logging.Level;
@@ -69,11 +70,8 @@ public class CubeToX3dom {
     protected Node createX3DomCube(Cube c) {
         Node retValue;
         Element transform = doc.createElement("transform");
-        transform.setAttribute("translation", String.format("%d %d %d", c.getxAxis(), c.getyAxis(), c.getzAxis()));
-        Long id = c.getId();
-        if(id!=null){
-            transform.setAttribute("id", id.toString());
-        }
+        CubeID id = c.getId();
+        transform.setAttribute("translation", String.format("%d %d %d", id.getxAxis(), id.getyAxis(), id.getzAxis()));
         
         Element shape = doc.createElement("shape");
         Element appearance = doc.createElement("appearance");
