@@ -3,6 +3,7 @@
 package cz.a_d.discworld.geodata;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Embeddable;
 
 /**
@@ -12,17 +13,25 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class CubeID implements Serializable {
 
-    protected long xAxis;
+    protected Long xAxis;
 
-    protected long yAxis;
+    protected Long yAxis;
 
-    protected long zAxis;
+    protected Long zAxis;
 
-    protected long shadowLevel;
+    protected Long shadowLevel;
 
-    protected long worldAxis;
+    protected Long worldAxis;
 
     public CubeID() {
+    }
+
+    public CubeID(long xAxis, long yAxis, long zAxis, long shadowLevel, long worldAxis) {
+        this.xAxis = xAxis;
+        this.yAxis = yAxis;
+        this.zAxis = zAxis;
+        this.shadowLevel = shadowLevel;
+        this.worldAxis = worldAxis;
     }
 
     public CubeID(CubeID id) {
@@ -38,7 +47,7 @@ public class CubeID implements Serializable {
      *
      * @return the value of worldAxis
      */
-    public long getWorldAxis() {
+    public Long getWorldAxis() {
         return worldAxis;
     }
 
@@ -47,7 +56,7 @@ public class CubeID implements Serializable {
      *
      * @param worldAxis new value of worldAxis
      */
-    public void setWorldAxis(long worldAxis) {
+    public void setWorldAxis(Long worldAxis) {
         this.worldAxis = worldAxis;
     }
 
@@ -56,7 +65,7 @@ public class CubeID implements Serializable {
      *
      * @return the value of shadowLevel
      */
-    public long getShadowLevel() {
+    public Long getShadowLevel() {
         return shadowLevel;
     }
 
@@ -65,7 +74,7 @@ public class CubeID implements Serializable {
      *
      * @param shadowLevel new value of shadowLevel
      */
-    public void setShadowLevel(long shadowLevel) {
+    public void setShadowLevel(Long shadowLevel) {
         this.shadowLevel = shadowLevel;
     }
 
@@ -74,7 +83,7 @@ public class CubeID implements Serializable {
      *
      * @return the value of zAxis
      */
-    public long getzAxis() {
+    public Long getzAxis() {
         return zAxis;
     }
 
@@ -83,7 +92,7 @@ public class CubeID implements Serializable {
      *
      * @param zAxis new value of zAxis
      */
-    public void setzAxis(long zAxis) {
+    public void setzAxis(Long zAxis) {
         this.zAxis = zAxis;
     }
 
@@ -92,7 +101,7 @@ public class CubeID implements Serializable {
      *
      * @return the value of yAxis
      */
-    public long getyAxis() {
+    public Long getyAxis() {
         return yAxis;
     }
 
@@ -101,7 +110,7 @@ public class CubeID implements Serializable {
      *
      * @param yAxis new value of yAxis
      */
-    public void setyAxis(long yAxis) {
+    public void setyAxis(Long yAxis) {
         this.yAxis = yAxis;
     }
 
@@ -110,7 +119,7 @@ public class CubeID implements Serializable {
      *
      * @return the value of xAxis
      */
-    public long getxAxis() {
+    public Long getxAxis() {
         return xAxis;
     }
 
@@ -119,18 +128,18 @@ public class CubeID implements Serializable {
      *
      * @param xAxis new value of xAxis
      */
-    public void setxAxis(long xAxis) {
+    public void setxAxis(Long xAxis) {
         this.xAxis = xAxis;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 43 * hash + (int) (this.xAxis ^ (this.xAxis >>> 32));
-        hash = 43 * hash + (int) (this.yAxis ^ (this.yAxis >>> 32));
-        hash = 43 * hash + (int) (this.zAxis ^ (this.zAxis >>> 32));
-        hash = 43 * hash + (int) (this.shadowLevel ^ (this.shadowLevel >>> 32));
-        hash = 43 * hash + (int) (this.worldAxis ^ (this.worldAxis >>> 32));
+        hash = 83 * hash + Objects.hashCode(this.xAxis);
+        hash = 83 * hash + Objects.hashCode(this.yAxis);
+        hash = 83 * hash + Objects.hashCode(this.zAxis);
+        hash = 83 * hash + Objects.hashCode(this.shadowLevel);
+        hash = 83 * hash + Objects.hashCode(this.worldAxis);
         return hash;
     }
 
@@ -143,24 +152,24 @@ public class CubeID implements Serializable {
             return false;
         }
         final CubeID other = (CubeID) obj;
-        if (this.xAxis != other.xAxis) {
+        if (!Objects.equals(this.xAxis, other.xAxis)) {
             return false;
         }
-        if (this.yAxis != other.yAxis) {
+        if (!Objects.equals(this.yAxis, other.yAxis)) {
             return false;
         }
-        if (this.zAxis != other.zAxis) {
+        if (!Objects.equals(this.zAxis, other.zAxis)) {
             return false;
         }
-        if (this.shadowLevel != other.shadowLevel) {
+        if (!Objects.equals(this.shadowLevel, other.shadowLevel)) {
             return false;
         }
-        return this.worldAxis == other.worldAxis;
+        return Objects.equals(this.worldAxis, other.worldAxis);
     }
 
     @Override
     public String toString() {
-        return "CubeID{" + "x=" + xAxis + ", y=" + yAxis + ", z=" + zAxis + ", shadowLevel=" + shadowLevel + ", world=" + worldAxis + '}';
+        return "CubeID{" + "xAxis=" + xAxis + ", yAxis=" + yAxis + ", zAxis=" + zAxis + ", shadowLevel=" + shadowLevel + ", worldAxis=" + worldAxis + '}';
     }
 
 }

@@ -20,10 +20,48 @@ public class SubCubeDefinition implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne
+    @OneToOne(mappedBy = "subCubeDefinition")
     protected Cube parentCube;
 
-    protected double subCubeSize;
+    @OneToOne(mappedBy = "rootDefinition")
+    protected SubCube subCube;
+
+    protected long maxSubCubeAxis;
+
+    /**
+     * Get the value of maxSubCubeAxis
+     *
+     * @return the value of maxSubCubeAxis
+     */
+    public long getMaxSubCubeAxis() {
+        return maxSubCubeAxis;
+    }
+
+    /**
+     * Set the value of maxSubCubeAxis
+     *
+     * @param maxSubCubeAxis new value of maxSubCubeAxis
+     */
+    public void setMaxSubCubeAxis(long maxSubCubeAxis) {
+        this.maxSubCubeAxis = maxSubCubeAxis;
+    }
+    /**
+     * Get the value of subCube
+     *
+     * @return the value of subCube
+     */
+    public SubCube getSubCube() {
+        return subCube;
+    }
+
+    /**
+     * Set the value of subCube
+     *
+     * @param subCube new value of subCube
+     */
+    public void setSubCube(SubCube subCube) {
+        this.subCube = subCube;
+    }
 
     public Long getId() {
         return id;
@@ -31,24 +69,6 @@ public class SubCubeDefinition implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    /**
-     * Get the value of subCubeSize
-     *
-     * @return the value of subCubeSize
-     */
-    public double getSubCubeSize() {
-        return subCubeSize;
-    }
-
-    /**
-     * Set the value of subCubeSize
-     *
-     * @param subCubeSize new value of subCubeSize
-     */
-    public void setSubCubeSize(double subCubeSize) {
-        this.subCubeSize = subCubeSize;
     }
 
     /**

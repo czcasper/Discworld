@@ -45,7 +45,7 @@ public class CubeManager implements Serializable {
      * Creates a new instance of CubeManager
      */
     public CubeManager() {
-        tmpCubeID = new CubeID();
+        tmpCubeID = new CubeID(0, 0, 0, 0, 0);
     }
 
     @PostConstruct

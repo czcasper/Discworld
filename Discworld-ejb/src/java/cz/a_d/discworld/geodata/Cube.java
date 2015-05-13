@@ -27,7 +27,7 @@ public class Cube implements Serializable {
     @ManyToOne
     protected Time time;
     
-    @OneToOne(mappedBy = "parentCube")
+    @OneToOne
     private SubCubeDefinition subCubeDefinition;
     
 
