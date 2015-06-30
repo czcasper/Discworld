@@ -46,7 +46,7 @@ public class Appearance {
      * The material field, if specified, shall contain a Material node. If the material field is NULL or unspecified, lighting is off (all
      * lights are ignored during rendering of the object that references this Appearance) and the unlit object colour is (1, 1, 1).
      */
-    protected X3DMaterialNode material;
+    protected X3DMaterial material;
 
     /**
      * Field to add metadata information.
@@ -193,7 +193,7 @@ public class Appearance {
      *
      * @return the value of material
      */
-    public X3DMaterialNode getMaterial() {
+    public X3DMaterial getMaterial() {
         return material;
     }
 
@@ -202,7 +202,7 @@ public class Appearance {
      *
      * @param material new value of material
      */
-    public void setMaterial(X3DMaterialNode material) {
+    public void setMaterial(X3DMaterial material) {
         this.material = material;
     }
 

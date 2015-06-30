@@ -2,11 +2,14 @@
  */
 package cz.a_d.discworld.x3dom;
 
-import cz.a_d.discworld.x3dom.data.model.Geometry;
+import cz.a_d.discworld.x3dom.data.X3DAxisVector;
+import cz.a_d.discworld.x3dom.data.apprance.Appearance;
+import cz.a_d.discworld.x3dom.data.apprance.X3DMaterial;
 import cz.a_d.discworld.x3dom.data.model.X3DScene;
 import cz.a_d.discworld.x3dom.data.model.iterchange.geometry.Box;
 import cz.a_d.discworld.x3dom.data.model.iterchange.scene.Shape;
-import cz.a_d.discworld.x3dom.data.model.modelType.scene.Interchange;
+import cz.a_d.discworld.x3dom.data.model.iterchange.scene.Transform;
+import cz.a_d.discworld.x3dom.exceptions.X3DException;
 import java.io.StringWriter;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
@@ -21,18 +24,18 @@ import static org.junit.Assert.*;
  * @author maslu02
  */
 public class X3dTest {
-    
+
     protected JAXBContext context;
     protected Unmarshaller unMarshaller;
     protected Marshaller marshaller;
-    
+
     public X3dTest() throws JAXBException {
         context = JAXBContext.newInstance(X3d.class);
         unMarshaller = context.createUnmarshaller();
         marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
     }
-    
+
     @Test
     public void testEmptyElement() throws JAXBException {
         X3d instance = new X3d();
@@ -41,7 +44,7 @@ public class X3dTest {
         marshaller.marshal(instance, result);
         assertEquals(expectedResult, result.toString());
     }
-    
+
     @Test
     public void testSceneInside() throws JAXBException {
         X3d instance = new X3d();
@@ -51,166 +54,72 @@ public class X3dTest {
         marshaller.marshal(instance, result);
         assertEquals(expectedResult, result.toString());
     }
-    
+
     @Test
-    public void testSceneWithBoxInside() throws JAXBException {
+    public void testSceneWithBoxInside() throws JAXBException, X3DException {
         X3d instance = new X3d();
         X3DScene scene = new X3DScene();
         instance.addScene(scene);
-        
-        Interchange interchange = new Interchange();
-        scene.setInterchange(interchange);
-        
+
         Shape shape = new Shape();
-        interchange.setShape(shape);
-        
-        Geometry geometry = new Geometry();
-        shape.setGeometry(geometry);
-        
-        cz.a_d.discworld.x3dom.data.model.modelType.geometry.Interchange geoInterChange = new cz.a_d.discworld.x3dom.data.model.modelType.geometry.Interchange();
-        geometry.setInterchange(geoInterChange);
-        
-        geoInterChange.addBox(new Box());
-        String expectedResult = "<x3d><scene/></x3d>";
+        scene.setShape(shape);
+
+        shape.addBox(new Box());
+        String expectedResult = "<x3d><scene><shape><box/></shape></scene></x3d>";
         StringWriter result = new StringWriter();
         marshaller.marshal(instance, result);
         assertEquals(expectedResult, result.toString());
+
+        Appearance ap = new Appearance();
+        shape.setAppearance(ap);
         
+        X3DMaterial mat = new X3DMaterial();
+        ap.setMaterial(mat);
+        mat.setDiffuseColor("0,0,1");
+        expectedResult = "<x3d><scene><shape><appearance><material diffuseColor=\"0.0,0.0,1.0\"/></appearance><box/></shape></scene></x3d>";
+        result = new StringWriter();
+        marshaller.marshal(instance, result);
+        assertEquals(expectedResult, result.toString());
+
     }
 
-    /**
-     * Test of getPrimitiveQuality method, of class X3d.
-     */
     @Test
-    public void testGetPrimitiveQuality() {
-        System.out.println("getPrimitiveQuality");
+    public void testSceneWithTransformAndBoxInside() throws JAXBException, X3DException {
         X3d instance = new X3d();
-        PrimitiveQuality expResult = null;
-        PrimitiveQuality result = instance.getPrimitiveQuality();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        X3DScene scene = new X3DScene();
+        instance.addScene(scene);
+
+        Transform tr = new Transform();
+        scene.addTransform(tr);
+
+        Shape shape = new Shape();
+        tr.setShape(shape);
+        shape.addBox(new Box());
+        String expectedResult = "<x3d><scene><transform><shape><box/></shape></transform></scene></x3d>";
+        StringWriter result = new StringWriter();
+        marshaller.marshal(instance, result);
+        assertEquals(expectedResult, result.toString());
+
+        X3DAxisVector vector = new X3DAxisVector("10,1,-2");
+        tr.setTranslation(vector);
+        expectedResult = "<x3d><scene><transform translation=\"10.0,1.0,-2.0\"><shape><box/></shape></transform></scene></x3d>";
+        result = new StringWriter();
+        marshaller.marshal(instance, result);
+        assertEquals(expectedResult, result.toString());
     }
 
     /**
      * Test of setPrimitiveQuality method, of class X3d.
+     * @throws javax.xml.bind.JAXBException
      */
     @Test
-    public void testSetPrimitiveQuality() {
-        System.out.println("setPrimitiveQuality");
-        PrimitiveQuality primitiveQuality = null;
+    public void testID() throws JAXBException {
         X3d instance = new X3d();
-        instance.setPrimitiveQuality(primitiveQuality);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.setId("testid");
+        String expectedResult = "<x3d id=\"testid\"/>";
+        StringWriter result = new StringWriter();
+        marshaller.marshal(instance, result);
+        assertEquals(expectedResult, result.toString());
     }
 
-    /**
-     * Test of isShowProgress method, of class X3d.
-     */
-    @Test
-    public void testIsShowProgress() {
-        System.out.println("isShowProgress");
-        X3d instance = new X3d();
-        Boolean expResult = null;
-        Boolean result = instance.isShowProgress();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setShowProgress method, of class X3d.
-     */
-    @Test
-    public void testSetShowProgress() {
-        System.out.println("setShowProgress");
-        Boolean showProgress = null;
-        X3d instance = new X3d();
-        instance.setShowProgress(showProgress);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isShowStat method, of class X3d.
-     */
-    @Test
-    public void testIsShowStat() {
-        System.out.println("isShowStat");
-        X3d instance = new X3d();
-        Boolean expResult = null;
-        Boolean result = instance.isShowStat();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setShowStat method, of class X3d.
-     */
-    @Test
-    public void testSetShowStat() {
-        System.out.println("setShowStat");
-        Boolean showStat = null;
-        X3d instance = new X3d();
-        instance.setShowStat(showStat);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isShowLog method, of class X3d.
-     */
-    @Test
-    public void testIsShowLog() {
-        System.out.println("isShowLog");
-        X3d instance = new X3d();
-        Boolean expResult = null;
-        Boolean result = instance.isShowLog();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setShowLog method, of class X3d.
-     */
-    @Test
-    public void testSetShowLog() {
-        System.out.println("setShowLog");
-        Boolean showLog = null;
-        X3d instance = new X3d();
-        instance.setShowLog(showLog);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getScene method, of class X3d.
-     */
-    @Test
-    public void testGetScene() {
-        System.out.println("getScene");
-        X3d instance = new X3d();
-        List<X3DScene> expResult = null;
-        List<X3DScene> result = instance.getScene();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setScene method, of class X3d.
-     */
-    @Test
-    public void testSetScene() {
-        System.out.println("setScene");
-        List<X3DScene> scene = null;
-        X3d instance = new X3d();
-        instance.setScene(scene);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
 }

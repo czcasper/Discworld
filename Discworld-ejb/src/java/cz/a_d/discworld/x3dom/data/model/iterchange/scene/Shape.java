@@ -3,11 +3,17 @@
 package cz.a_d.discworld.x3dom.data.model.iterchange.scene;
 
 import cz.a_d.discworld.x3dom.data.X3DAxisVector;
-import cz.a_d.discworld.x3dom.data.X3DVec3f;
 import cz.a_d.discworld.x3dom.data.apprance.Appearance;
 import cz.a_d.discworld.x3dom.data.metadata.X3DMetadata;
-import cz.a_d.discworld.x3dom.data.model.Geometry;
+import cz.a_d.discworld.x3dom.data.model.iterchange.geometry.Box;
+import cz.a_d.discworld.x3dom.data.model.modelType.geometry.CAD;
+import cz.a_d.discworld.x3dom.data.model.modelType.geometry.GeoSpatial;
+import cz.a_d.discworld.x3dom.data.model.modelType.geometry.Immersive;
+import cz.a_d.discworld.x3dom.data.model.modelType.geometry.Interactive;
+import cz.a_d.discworld.x3dom.data.model.modelType.geometry.Nurbs;
+import cz.a_d.discworld.x3dom.data.model.modelType.geometry.TwoDimension;
 import cz.a_d.discworld.x3dom.exceptions.X3DException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -42,7 +48,6 @@ public class Shape {
     /**
      * Holds the geometry node.
      */
-    protected Geometry geometry;
 
     /**
      * Defines whether the shape is pickable.
@@ -68,6 +73,165 @@ public class Shape {
     @XmlAttribute
     protected Boolean render;
 
+//    protected Geometry geometry;
+    protected CAD cad;
+
+    protected GeoSpatial geoSpatial;
+
+    protected Immersive immersive;
+
+    protected Interactive interactive;
+
+    protected Nurbs nurbs;
+
+    protected TwoDimension twoDimension;
+
+//    protected Interchange interchange;
+    @XmlElement
+    protected List<Box> box;
+
+    /**
+     * Get the value of box
+     *
+     * @return the value of box
+     */
+    public List<Box> getBox() {
+        return box;
+    }
+
+    /**
+     * Set the value of box
+     *
+     * @param box new value of box
+     */
+    public void setBox(List<Box> box) {
+        this.box = box;
+    }
+
+    /**
+     * Add box to list, in case when there is no list method will initialize new one.
+     *
+     * @param box must be non empty valid box definition.
+     */
+    public void addBox(Box box) {
+        if (box != null) {
+            if (this.box == null) {
+                this.box = new ArrayList<>();
+            }
+            this.box.add(box);
+        }
+    }
+    
+    // TODO rest of interchange objects.
+    
+    /**
+     * Get the value of twoDimension
+     *
+     * @return the value of twoDimension
+     */
+    public TwoDimension getTwoDimension() {
+        return twoDimension;
+    }
+
+    /**
+     * Set the value of twoDimension
+     *
+     * @param twoDimension new value of twoDimension
+     */
+    public void setTwoDimension(TwoDimension twoDimension) {
+        this.twoDimension = twoDimension;
+    }
+
+    /**
+     * Get the value of nurbs
+     *
+     * @return the value of nurbs
+     */
+    public Nurbs getNurbs() {
+        return nurbs;
+    }
+
+    /**
+     * Set the value of nurbs
+     *
+     * @param nurbs new value of nurbs
+     */
+    public void setNurbs(Nurbs nurbs) {
+        this.nurbs = nurbs;
+    }
+
+    /**
+     * Get the value of interactive
+     *
+     * @return the value of interactive
+     */
+    public Interactive getInteractive() {
+        return interactive;
+    }
+
+    /**
+     * Set the value of interactive
+     *
+     * @param interactive new value of interactive
+     */
+    public void setInteractive(Interactive interactive) {
+        this.interactive = interactive;
+    }
+
+    /**
+     * Get the value of immersive
+     *
+     * @return the value of immersive
+     */
+    public Immersive getImmersive() {
+        return immersive;
+    }
+
+    /**
+     * Set the value of immersive
+     *
+     * @param immersive new value of immersive
+     */
+    public void setImmersive(Immersive immersive) {
+        this.immersive = immersive;
+    }
+
+    /**
+     * Get the value of geoSpatial
+     *
+     * @return the value of geoSpatial
+     */
+    public GeoSpatial getGeoSpatial() {
+        return geoSpatial;
+    }
+
+    /**
+     * Set the value of geoSpatial
+     *
+     * @param geoSpatial new value of geoSpatial
+     */
+    public void setGeoSpatial(GeoSpatial geoSpatial) {
+        this.geoSpatial = geoSpatial;
+    }
+
+    /**
+     * Get the value of cad
+     *
+     * @return the value of cad
+     */
+    public CAD getCad() {
+        return cad;
+    }
+
+    /**
+     * Set the value of cad
+     *
+     * @param cad new value of cad
+     */
+    public void setCad(CAD cad) {
+        this.cad = cad;
+    }
+    
     /**
      * Get the value of render
      *
@@ -138,24 +302,6 @@ public class Shape {
      */
     public void setPickable(Boolean pickable) {
         this.pickable = pickable;
-    }
-
-    /**
-     * Get the value of geometry
-     *
-     * @return the value of geometry
-     */
-    public Geometry getGeometry() {
-        return geometry;
-    }
-
-    /**
-     * Set the value of geometry
-     *
-     * @param geometry new value of geometry
-     */
-    public void setGeometry(Geometry geometry) {
-        this.geometry = geometry;
     }
 
     /**

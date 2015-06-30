@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "x3d")
 @XmlType(namespace = "http://www.web3d.org/specifications/x3d-namespace")
-public class X3d {
+public class X3d extends X3DObject {
 
     protected List<X3DScene> scene;
 
@@ -45,6 +45,54 @@ public class X3d {
      */
     @XmlAttribute
     protected PrimitiveQuality primitiveQuality;
+
+    /**
+     * Define width of window used to diplay 3D scene.
+     */
+    @XmlAttribute
+    protected String width;
+
+    /**
+     * Define height of window used to display 3D scene.
+     */
+    @XmlAttribute
+    protected String height;
+
+    /**
+     * Get the value of height
+     *
+     * @return the value of height
+     */
+    public String getHeight() {
+        return height;
+    }
+
+    /**
+     * Set the value of height
+     *
+     * @param height new value of height
+     */
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
+    /**
+     * Get the value of width
+     *
+     * @return the value of width
+     */
+    public String getWidth() {
+        return width;
+    }
+
+    /**
+     * Set the value of width
+     *
+     * @param width new value of width
+     */
+    public void setWidth(String width) {
+        this.width = width;
+    }
 
     /**
      * Get the value of primitiveQuality
