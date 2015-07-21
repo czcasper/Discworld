@@ -2,6 +2,7 @@
  */
 package cz.a_d.discworld.x3dom.data.model.iterchange.scene;
 
+import cz.a_d.discworld.x3dom.X3DObject;
 import cz.a_d.discworld.x3dom.data.X3DAxisVector;
 import cz.a_d.discworld.x3dom.data.X3DRotation;
 import cz.a_d.discworld.x3dom.data.metadata.X3DMetadata;
@@ -19,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.NONE)
-public class Viewpoint {
+public class Viewpoint extends X3DObject {
 
     /**
      * Pushes/pops the node on/from the top of the bindable stack.

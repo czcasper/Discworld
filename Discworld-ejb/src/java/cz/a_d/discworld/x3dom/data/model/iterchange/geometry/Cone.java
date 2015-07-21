@@ -2,6 +2,7 @@
  */
 package cz.a_d.discworld.x3dom.data.model.iterchange.geometry;
 
+import cz.a_d.discworld.x3dom.X3DObject;
 import cz.a_d.discworld.x3dom.data.metadata.X3DMetadata;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -17,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Cone {
+public class Cone extends X3DObject {
 
     /**
      * The bottom field specifies whether the bottom cap of the cone is created.

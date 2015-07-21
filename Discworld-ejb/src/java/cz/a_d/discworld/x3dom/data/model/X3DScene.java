@@ -2,6 +2,7 @@
  */
 package cz.a_d.discworld.x3dom.data.model;
 
+import cz.a_d.discworld.x3dom.X3DObject;
 import cz.a_d.discworld.x3dom.data.X3DAxisVector;
 import cz.a_d.discworld.x3dom.data.metadata.X3DMetadata;
 import cz.a_d.discworld.x3dom.data.model.iterchange.scene.Background;
@@ -44,7 +45,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.NONE)
-public class X3DScene {
+public class X3DScene extends X3DObject {
 
     /**
      * Center of the bounding box.
@@ -80,12 +81,6 @@ public class X3DScene {
      */
     @XmlElement
     protected List<X3DMetadata> metadata;
-
-    /**
-     * Id used to update content of scene from server side.
-     */
-    @XmlAttribute
-    protected String id;
 
     protected DIS dis;
 
@@ -150,24 +145,6 @@ public class X3DScene {
 
     @XmlElement
     protected WorldInfo worldInfo;
-
-    /**
-     * Get the value of id
-     *
-     * @return the value of id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Set the value of id
-     *
-     * @param id new value of id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
 
     /**
      * Get the value of worldInfo

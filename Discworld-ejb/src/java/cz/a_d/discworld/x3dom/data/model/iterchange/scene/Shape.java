@@ -2,6 +2,7 @@
  */
 package cz.a_d.discworld.x3dom.data.model.iterchange.scene;
 
+import cz.a_d.discworld.x3dom.X3DObject;
 import cz.a_d.discworld.x3dom.data.X3DAxisVector;
 import cz.a_d.discworld.x3dom.data.apprance.Appearance;
 import cz.a_d.discworld.x3dom.data.metadata.X3DMetadata;
@@ -27,7 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.NONE)
-public class Shape {
+public class Shape extends X3DObject {
 
     /**
      * Holds the appearance node.
@@ -48,7 +49,6 @@ public class Shape {
     /**
      * Holds the geometry node.
      */
-
     /**
      * Defines whether the shape is pickable.
      */
@@ -121,9 +121,8 @@ public class Shape {
             this.box.add(box);
         }
     }
-    
+
     // TODO rest of interchange objects.
-    
     /**
      * Get the value of twoDimension
      *
@@ -231,7 +230,7 @@ public class Shape {
     public void setCad(CAD cad) {
         this.cad = cad;
     }
-    
+
     /**
      * Get the value of render
      *

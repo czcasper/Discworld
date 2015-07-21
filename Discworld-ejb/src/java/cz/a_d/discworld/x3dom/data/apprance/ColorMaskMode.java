@@ -2,6 +2,7 @@
  */
 package cz.a_d.discworld.x3dom.data.apprance;
 
+import cz.a_d.discworld.x3dom.X3DObject;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
@@ -12,6 +13,6 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ColorMaskMode {
+public class ColorMaskMode extends X3DObject {
 
 }

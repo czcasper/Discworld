@@ -2,6 +2,7 @@
  */
 package cz.a_d.discworld.x3dom.data.model.iterchange.scene;
 
+import cz.a_d.discworld.x3dom.X3DObject;
 import cz.a_d.discworld.x3dom.data.X3DAxisVector;
 import cz.a_d.discworld.x3dom.data.metadata.X3DMetadata;
 import cz.a_d.discworld.x3dom.exceptions.X3DException;
@@ -19,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.NONE)
-public class PositionInterpolator {
+public class PositionInterpolator extends X3DObject {
 
     /**
      * The key field contains the list of key times, the keyValue field contains values for the target field, one complete set of values for

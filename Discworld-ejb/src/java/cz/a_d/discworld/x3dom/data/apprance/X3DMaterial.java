@@ -2,6 +2,7 @@
  */
 package cz.a_d.discworld.x3dom.data.apprance;
 
+import cz.a_d.discworld.x3dom.X3DObject;
 import cz.a_d.discworld.x3dom.data.X3DColor;
 import cz.a_d.discworld.x3dom.data.metadata.X3DMetadata;
 import cz.a_d.discworld.x3dom.exceptions.X3DException;
@@ -20,7 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.NONE)
-public class X3DMaterial {
+public class X3DMaterial extends X3DObject {
 
     /**
      * The ambientIntensity field specifies how much ambient light from light sources this surface shall reflect. Ambient light is

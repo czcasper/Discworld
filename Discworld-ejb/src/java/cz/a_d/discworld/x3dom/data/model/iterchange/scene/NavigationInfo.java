@@ -2,6 +2,7 @@
  */
 package cz.a_d.discworld.x3dom.data.model.iterchange.scene;
 
+import cz.a_d.discworld.x3dom.X3DObject;
 import cz.a_d.discworld.x3dom.data.metadata.X3DMetadata;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -15,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.FIELD)
-public class NavigationInfo {
+public class NavigationInfo extends X3DObject {
 
     /**
      * avatarSize triplet values are: (a) collision distance between user and geometry (near culling plane of the view frustrum) (b) viewer

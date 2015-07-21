@@ -2,6 +2,7 @@
  */
 package cz.a_d.discworld.x3dom.data.model.iterchange.scene;
 
+import cz.a_d.discworld.x3dom.X3DObject;
 import cz.a_d.discworld.x3dom.data.X3DAxisVector;
 import cz.a_d.discworld.x3dom.data.X3DColor;
 import cz.a_d.discworld.x3dom.data.metadata.X3DMetadata;
@@ -20,7 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.NONE)
-public class ColorInterpolator {
+public class ColorInterpolator extends X3DObject {
 
     /**
      * The key field contains the list of key times, the keyValue field contains values for the target field, one complete set of values for
@@ -95,6 +96,7 @@ public class ColorInterpolator {
     public List<Float> getKey() {
         return key;
     }
+
     /**
      * Get the value of keyValue
      *

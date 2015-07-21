@@ -2,6 +2,7 @@
  */
 package cz.a_d.discworld.x3dom.data.model.iterchange.scene;
 
+import cz.a_d.discworld.x3dom.X3DObject;
 import cz.a_d.discworld.x3dom.data.X3DAxisVector;
 import cz.a_d.discworld.x3dom.data.X3DColor;
 import cz.a_d.discworld.x3dom.data.X3DVec3f;
@@ -20,7 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.NONE)
-public class DirectionalLight {
+public class DirectionalLight extends X3DObject {
 
     /**
      * The ambientIntensity specifies the intensity of the ambient emission from the light. Light intensity may range from 0.0 (no light

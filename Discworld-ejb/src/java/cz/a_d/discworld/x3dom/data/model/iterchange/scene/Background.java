@@ -2,6 +2,7 @@
  */
 package cz.a_d.discworld.x3dom.data.model.iterchange.scene;
 
+import cz.a_d.discworld.x3dom.X3DObject;
 import cz.a_d.discworld.x3dom.data.X3DColor;
 import cz.a_d.discworld.x3dom.data.metadata.X3DMetadata;
 import cz.a_d.discworld.x3dom.exceptions.X3DException;
@@ -19,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.NONE)
-public class Background {
+public class Background extends X3DObject {
 
     @XmlAttribute
     protected URI backUrl;

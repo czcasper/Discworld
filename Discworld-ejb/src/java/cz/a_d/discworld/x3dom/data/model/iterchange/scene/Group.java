@@ -2,6 +2,7 @@
  */
 package cz.a_d.discworld.x3dom.data.model.iterchange.scene;
 
+import cz.a_d.discworld.x3dom.X3DObject;
 import cz.a_d.discworld.x3dom.data.X3DAxisVector;
 import cz.a_d.discworld.x3dom.data.metadata.X3DMetadata;
 import cz.a_d.discworld.x3dom.data.model.modelType.scene.DIS;
@@ -27,7 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.NONE)
-public class Group {
+public class Group extends X3DObject {
 
     /**
      * Center of the bounding box.
@@ -384,7 +385,7 @@ public class Group {
     public void setBackground(Background background) {
         this.background = background;
     }
- 
+
     /**
      * Get the value of sceneGraphStructure
      *

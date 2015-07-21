@@ -2,6 +2,7 @@
  */
 package cz.a_d.discworld.x3dom.data.apprance;
 
+import cz.a_d.discworld.x3dom.X3DObject;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -13,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Appearance {
+public class Appearance extends X3DObject {
 // TODO validate this definition and implement child dependecies
     /**
      * Specify the threshold for the alpha clipping.

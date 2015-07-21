@@ -11,7 +11,6 @@ import cz.a_d.discworld.x3dom.data.model.iterchange.scene.Shape;
 import cz.a_d.discworld.x3dom.data.model.iterchange.scene.Transform;
 import cz.a_d.discworld.x3dom.exceptions.X3DException;
 import java.io.StringWriter;
-import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;

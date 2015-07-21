@@ -2,6 +2,7 @@
  */
 package cz.a_d.discworld.x3dom.data.model.iterchange.scene;
 
+import cz.a_d.discworld.x3dom.X3DObject;
 import cz.a_d.discworld.x3dom.data.metadata.X3DMetadata;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -15,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.FIELD)
-public class TimeSensor {
+public class TimeSensor extends X3DObject {
 
     /**
      * The "cycle" of a TimeSensor node lasts for cycleInterval seconds. The value of cycleInterval shall be greater than zero.

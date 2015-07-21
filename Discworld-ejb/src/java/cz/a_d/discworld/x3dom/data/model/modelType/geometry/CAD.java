@@ -2,12 +2,12 @@
  */
 package cz.a_d.discworld.x3dom.data.model.modelType.geometry;
 
-import javax.xml.bind.annotation.XmlTransient;
+import cz.a_d.discworld.x3dom.X3DObject;
 
 /**
  *
  * @author maslu02
  */
-public class CAD {
-    
+public class CAD extends X3DObject {
+
 }

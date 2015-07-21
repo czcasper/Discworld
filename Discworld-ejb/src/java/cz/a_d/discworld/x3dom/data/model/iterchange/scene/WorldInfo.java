@@ -2,7 +2,7 @@
  */
 package cz.a_d.discworld.x3dom.data.model.iterchange.scene;
 
-import cz.a_d.discworld.x3dom.data.X3DValueArray;
+import cz.a_d.discworld.x3dom.X3DObject;
 import cz.a_d.discworld.x3dom.data.metadata.X3DMetadata;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.FIELD)
-public class WorldInfo {
+public class WorldInfo extends X3DObject {
 
     /**
      * The title field is intended to store the name or title of the world so that browsers can present this to the user (perhaps in the
