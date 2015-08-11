@@ -2,12 +2,12 @@
 <!DOCTYPE sun-web-app PUBLIC "-//Sun Microsystems, Inc.//DTD GlassFish Application Server 3.0 Servlet 3.0//EN" "http://www.sun.com/software/appserver/dtds/sun-web-app_3_0-0.dtd">
 <sun-web-app error-url="">
   <security-role-mapping>
-    <role-name>Admin</role-name>
-    <group-name>Masters</group-name>
+    <role-name>Developer</role-name>
+    <group-name>developer</group-name>
   </security-role-mapping>
   <security-role-mapping>
-    <role-name>Architect</role-name>
-    <group-name>WorldArchitects</group-name>
+    <role-name>Guest</role-name>
+    <group-name>guest</group-name>
   </security-role-mapping>
   <class-loader delegate="true"/>
   <jsp-config>

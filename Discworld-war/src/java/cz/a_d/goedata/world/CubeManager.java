@@ -16,8 +16,8 @@ import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import org.primefaces.context.RequestContext;
@@ -28,7 +28,7 @@ import org.primefaces.context.RequestContext;
  */
 @Named(value = "cubeManager")
 @SessionScoped
-@DeclareRoles("Admin")
+@DeclareRoles("Developer")
 public class CubeManager implements Serializable {
 
     @EJB
@@ -65,7 +65,7 @@ public class CubeManager implements Serializable {
         return convert.convert(cubes);
     }
 
-    @RolesAllowed("Admin")
+    @RolesAllowed("Developer")
     public void createCube(ActionEvent event) {
         Cube tmp = new Cube();
         tmp.setId(new CubeID(tmpCubeID));

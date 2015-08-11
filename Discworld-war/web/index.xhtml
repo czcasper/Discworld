@@ -1,54 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <h:head>
-        <title>My first X3DOM page</title> 			
-        <!--<script type='text/javascript' src='http://www.x3dom.org/download/x3dom.js'></script>--> 
-        <script type='text/javascript' src='js/x3dom.js' />
-        <script type="text/javascript" src="js/x3domSceneControl.js"/>
-        <link rel='stylesheet' type='text/css' href='http://www.x3dom.org/download/x3dom.css'></link> 
-    </h:head>
-    <h:body>
-        Hello from Facelets
-        <br />
-        <h:form id="form">
-            <p:remoteCommand name="onload" action="#{cubeManager.initializeX3DomScene}" autoRun="true" />
-            <p:layout fullPage="true">
-                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                    Header
-                    <h:outputText value="#{securityManager.loginUserName}"/>
-                    <input type="button" value="Test JS" onclick="window.test();" />
-                </p:layoutUnit>
-                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
-                    <p:menu>
-                        <p:submenu label="Resources">
-                            <p:menuitem value="Create Cube" onclick="PF('cubeCreationDialog').show()" />
-                            <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
-                            <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
-                            <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
-                        </p:submenu>
-                    </p:menu>
-                </p:layoutUnit>
-
-                <p:layoutUnit position="center">
-                    <x3d width='600px' height='400px'> 
-                        <scene >
-                            <transform id="root" translation="0 0 0"></transform>
-                        </scene> 
-                    </x3d>
-                </p:layoutUnit>
-
-            </p:layout>
-        </h:form>
-        <h:form id="dialogs">
-            <p:dialog widgetVar="cubeCreationDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" >
-                <ui:include src="architect/createCube.xhtml" />
-            </p:dialog>
-        </h:form>
-        <br />
-    </h:body>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Discworld Universe</title> 			
+    </head>
+    <body>
+        <a href="faces/game/index.xhtml">faces</a>
+    </body>
 </html>
 

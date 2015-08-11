@@ -10,8 +10,8 @@
             <center>
                 <h1><h:outputText value="1. #{securityManager.loginUserName}"/></h1>
                 <br/><br/><h:outputText value="2. #{request.userPrincipal.name}"/>
-                <br/><br/><h:outputText value="3.a Admin #{request.isUserInRole('Admin')}"/>
-                <br/><br/><h:outputText value="3.b Architect #{request.isUserInRole('Architect')}"/>
+                <br/><br/><h:outputText value="3.a Developer #{request.isUserInRole('Developer')}"/>
+                <br/><br/><h:outputText value="3.b Guest #{request.isUserInRole('Guest')}"/>
                 <br/><br/><h:outputText value="3.c Masters #{request.isUserInRole('Masters')}"/>
                 <br/><br/><h:outputText value="3.d WorldArchitects #{request.isUserInRole('WorldArchitects')}"/>
                 <br/><br/><h:outputText value="3.e casper #{request.isUserInRole('casper')}"/>

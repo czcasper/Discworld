@@ -30,12 +30,12 @@
         <web-resource-collection>
             <web-resource-name>GamePage</web-resource-name>
             <description/>
-            <url-pattern>/game/*</url-pattern>
+            <url-pattern>/game/test/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description>Allow modify configuration of world</description>
-            <role-name>Architect</role-name>
-            <role-name>Admin</role-name>
+            <role-name>Developer</role-name>
+            <role-name>Guest</role-name>
         </auth-constraint>
     </security-constraint>
     <security-constraint>
@@ -43,12 +43,12 @@
         <web-resource-collection>
             <web-resource-name>FacesPages</web-resource-name>
             <description>all JSF pages in project</description>
-            <url-pattern>/faces/*</url-pattern>
+            <url-pattern>/faces/game/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>
-            <role-name>Architect</role-name>
-            <role-name>Admin</role-name>
+            <role-name>Developer</role-name>
+            <role-name>Guest</role-name>
         </auth-constraint>
         <user-data-constraint>
             <description/>
@@ -64,11 +64,11 @@
         </form-login-config>
     </login-config>
     <security-role>
-        <description>This is role for architect of the world</description>
-        <role-name>Architect</role-name>
+        <description>Game developer role</description>
+        <role-name>Developer</role-name>
     </security-role>
     <security-role>
-        <description>Administrator role.</description>
-        <role-name>Admin</role-name>
+        <description>Guest for presentation role</description>
+        <role-name>Guest</role-name>
     </security-role>
 </web-app>
