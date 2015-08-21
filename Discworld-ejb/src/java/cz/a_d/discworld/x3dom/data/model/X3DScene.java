@@ -15,9 +15,9 @@ import cz.a_d.discworld.x3dom.data.model.iterchange.scene.NormalInterpolator;
 import cz.a_d.discworld.x3dom.data.model.iterchange.scene.OrientationInterpolator;
 import cz.a_d.discworld.x3dom.data.model.iterchange.scene.PositionInterpolator;
 import cz.a_d.discworld.x3dom.data.model.iterchange.scene.ScalarInterpolator;
-import cz.a_d.discworld.x3dom.data.model.iterchange.scene.Shape;
+import cz.a_d.discworld.x3dom.data.model.iterchange.scene.X3DShape;
 import cz.a_d.discworld.x3dom.data.model.iterchange.scene.TimeSensor;
-import cz.a_d.discworld.x3dom.data.model.iterchange.scene.Transform;
+import cz.a_d.discworld.x3dom.data.model.iterchange.scene.X3DTransform;
 import cz.a_d.discworld.x3dom.data.model.iterchange.scene.Viewpoint;
 import cz.a_d.discworld.x3dom.data.model.iterchange.scene.WorldInfo;
 import cz.a_d.discworld.x3dom.data.model.modelType.scene.DIS;
@@ -132,13 +132,13 @@ public class X3DScene extends X3DObject {
     protected ScalarInterpolator scalarInterpolator;
 
     @XmlElement
-    protected Shape shape;
+    protected X3DShape shape;
 
     @XmlElement
     protected TimeSensor timeSensor;
 
     @XmlElement
-    protected List<Transform> transform;
+    protected List<X3DTransform> transform;
 
     @XmlElement
     protected Viewpoint viewpoint;
@@ -187,7 +187,7 @@ public class X3DScene extends X3DObject {
      *
      * @return the value of transform
      */
-    public List<Transform> getTransform() {
+    public List<X3DTransform> getTransform() {
         return transform;
     }
 
@@ -196,7 +196,7 @@ public class X3DScene extends X3DObject {
      *
      * @param transform new value of transform
      */
-    public void setTransform(List<Transform> transform) {
+    public void setTransform(List<X3DTransform> transform) {
         this.transform = transform;
     }
 
@@ -205,7 +205,7 @@ public class X3DScene extends X3DObject {
      *
      * @param transform valid instance of transformation node.
      */
-    public void addTransform(Transform transform) {
+    public void addTransform(X3DTransform transform) {
         if (transform != null) {
             if (this.transform == null) {
                 this.transform = new ArrayList<>();
@@ -237,7 +237,7 @@ public class X3DScene extends X3DObject {
      *
      * @return the value of shape
      */
-    public Shape getShape() {
+    public X3DShape getShape() {
         return shape;
     }
 
@@ -246,7 +246,7 @@ public class X3DScene extends X3DObject {
      *
      * @param shape new value of shape
      */
-    public void setShape(Shape shape) {
+    public void setShape(X3DShape shape) {
         this.shape = shape;
     }
 

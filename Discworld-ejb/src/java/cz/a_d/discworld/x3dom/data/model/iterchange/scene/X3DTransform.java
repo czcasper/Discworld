@@ -27,9 +27,9 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author maslu02
  */
-@XmlType
+@XmlType(name = "transform")
 @XmlAccessorType(XmlAccessType.NONE)
-public class Transform extends X3DObject {
+public class X3DTransform extends X3DObject {
 
     /**
      * Center of the bounding box.
@@ -130,13 +130,13 @@ public class Transform extends X3DObject {
     protected ScalarInterpolator scalarInterpolator;
 
     @XmlElement
-    protected Shape shape;
+    protected X3DShape shape;
 
     @XmlElement
     protected TimeSensor timeSensor;
 
     @XmlElement
-    protected Transform transform;
+    protected X3DTransform transform;
 
     @XmlElement
     protected Viewpoint viewpoint;
@@ -185,7 +185,7 @@ public class Transform extends X3DObject {
      *
      * @return the value of transform
      */
-    public Transform getTransform() {
+    public X3DTransform getTransform() {
         return transform;
     }
 
@@ -194,7 +194,7 @@ public class Transform extends X3DObject {
      *
      * @param transform new value of transform
      */
-    public void setTransform(Transform transform) {
+    public void setTransform(X3DTransform transform) {
         this.transform = transform;
     }
 
@@ -221,7 +221,7 @@ public class Transform extends X3DObject {
      *
      * @return the value of shape
      */
-    public Shape getShape() {
+    public X3DShape getShape() {
         return shape;
     }
 
@@ -230,7 +230,7 @@ public class Transform extends X3DObject {
      *
      * @param shape new value of shape
      */
-    public void setShape(Shape shape) {
+    public void setShape(X3DShape shape) {
         this.shape = shape;
     }
 

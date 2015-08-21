@@ -3,12 +3,12 @@
 package cz.a_d.discworld.x3dom;
 
 import cz.a_d.discworld.x3dom.data.X3DAxisVector;
-import cz.a_d.discworld.x3dom.data.apprance.Appearance;
+import cz.a_d.discworld.x3dom.data.apprance.X3DAppearance;
 import cz.a_d.discworld.x3dom.data.apprance.X3DMaterial;
 import cz.a_d.discworld.x3dom.data.model.X3DScene;
-import cz.a_d.discworld.x3dom.data.model.iterchange.geometry.Box;
-import cz.a_d.discworld.x3dom.data.model.iterchange.scene.Shape;
-import cz.a_d.discworld.x3dom.data.model.iterchange.scene.Transform;
+import cz.a_d.discworld.x3dom.data.model.iterchange.geometry.X3DBox;
+import cz.a_d.discworld.x3dom.data.model.iterchange.scene.X3DShape;
+import cz.a_d.discworld.x3dom.data.model.iterchange.scene.X3DTransform;
 import cz.a_d.discworld.x3dom.exceptions.X3DException;
 import java.io.StringWriter;
 import javax.xml.bind.JAXBContext;
@@ -60,16 +60,16 @@ public class X3dTest {
         X3DScene scene = new X3DScene();
         instance.addScene(scene);
 
-        Shape shape = new Shape();
+        X3DShape shape = new X3DShape();
         scene.setShape(shape);
 
-        shape.addBox(new Box());
+        shape.addBox(new X3DBox());
         String expectedResult = "<x3d><scene><shape><box/></shape></scene></x3d>";
         StringWriter result = new StringWriter();
         marshaller.marshal(instance, result);
         assertEquals(expectedResult, result.toString());
 
-        Appearance ap = new Appearance();
+        X3DAppearance ap = new X3DAppearance();
         shape.setAppearance(ap);
         
         X3DMaterial mat = new X3DMaterial();
@@ -88,12 +88,12 @@ public class X3dTest {
         X3DScene scene = new X3DScene();
         instance.addScene(scene);
 
-        Transform tr = new Transform();
+        X3DTransform tr = new X3DTransform();
         scene.addTransform(tr);
 
-        Shape shape = new Shape();
+        X3DShape shape = new X3DShape();
         tr.setShape(shape);
-        shape.addBox(new Box());
+        shape.addBox(new X3DBox());
         String expectedResult = "<x3d><scene><transform><shape><box/></shape></transform></scene></x3d>";
         StringWriter result = new StringWriter();
         marshaller.marshal(instance, result);

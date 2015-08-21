@@ -4,9 +4,9 @@ package cz.a_d.discworld.x3dom.data.model.iterchange.scene;
 
 import cz.a_d.discworld.x3dom.X3DObject;
 import cz.a_d.discworld.x3dom.data.X3DAxisVector;
-import cz.a_d.discworld.x3dom.data.apprance.Appearance;
+import cz.a_d.discworld.x3dom.data.apprance.X3DAppearance;
 import cz.a_d.discworld.x3dom.data.metadata.X3DMetadata;
-import cz.a_d.discworld.x3dom.data.model.iterchange.geometry.Box;
+import cz.a_d.discworld.x3dom.data.model.iterchange.geometry.X3DBox;
 import cz.a_d.discworld.x3dom.data.model.modelType.geometry.CAD;
 import cz.a_d.discworld.x3dom.data.model.modelType.geometry.GeoSpatial;
 import cz.a_d.discworld.x3dom.data.model.modelType.geometry.Immersive;
@@ -26,15 +26,15 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author maslu02
  */
-@XmlType
+@XmlType(name = "shape")
 @XmlAccessorType(XmlAccessType.NONE)
-public class Shape extends X3DObject {
+public class X3DShape extends X3DObject {
 
     /**
      * Holds the appearance node.
      */
     @XmlElement
-    protected Appearance appearance;
+    protected X3DAppearance appearance;
 
     /**
      * Center of the bounding box.
@@ -88,14 +88,14 @@ public class Shape extends X3DObject {
 
 //    protected Interchange interchange;
     @XmlElement
-    protected List<Box> box;
+    protected List<X3DBox> box;
 
     /**
      * Get the value of box
      *
      * @return the value of box
      */
-    public List<Box> getBox() {
+    public List<X3DBox> getBox() {
         return box;
     }
 
@@ -104,7 +104,7 @@ public class Shape extends X3DObject {
      *
      * @param box new value of box
      */
-    public void setBox(List<Box> box) {
+    public void setBox(List<X3DBox> box) {
         this.box = box;
     }
 
@@ -113,7 +113,7 @@ public class Shape extends X3DObject {
      *
      * @param box must be non empty valid box definition.
      */
-    public void addBox(Box box) {
+    public void addBox(X3DBox box) {
         if (box != null) {
             if (this.box == null) {
                 this.box = new ArrayList<>();
@@ -405,7 +405,7 @@ public class Shape extends X3DObject {
      *
      * @return the value of appearance
      */
-    public Appearance getAppearance() {
+    public X3DAppearance getAppearance() {
         return appearance;
     }
 
@@ -414,7 +414,7 @@ public class Shape extends X3DObject {
      *
      * @param appearance new value of appearance
      */
-    public void setAppearance(Appearance appearance) {
+    public void setAppearance(X3DAppearance appearance) {
         this.appearance = appearance;
     }
 

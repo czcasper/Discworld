@@ -7,8 +7,11 @@
 
     <h:head>
         <title><ui:insert name="title">Default Title</ui:insert></title>
+
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
-        <h:outputScript library="js" name="jsfcrud.js"/>
+        <h:outputScript library="js" name="jsfcrud.js" />
+        <h:outputScript library="js" name="x3dom.js" />
+        <h:outputScript library="js" name="x3domSceneControl.js" />
     </h:head>
 
     <h:body>
@@ -16,12 +19,15 @@
         <p:growl id="growl" life="3000" />
 
         <p:layout fullPage="true">
-            <p:layoutUnit position="north" size="65" header="#{bundle.AppName}" collapsible="true">
+            <p:layoutUnit position="north" size="65" header="#{bundle.AppName}" collapsible="true" >
                 <h:form id="menuForm">
                     <p:menubar>
-                        <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
-                        <p:submenu label="#{bundle.Maintenance}">
+                        <p:menuitem value="#{bundle.ArchitectMenuBar_home}" outcome="/index" icon="ui-icon-home"/>
+                        <p:submenu label="#{bundle.ArchitectMenuBar_maintenance}">
                             <p:menuitem value="World" outcome="/architect/world/List.xhtml" />
+                        </p:submenu>
+                        <p:submenu label="#{bundle.ArchitectMenuBar_worldDesign}">
+                            <p:menuitem value="World" outcome="/architect/worldDesign/index.xhtml" />
                         </p:submenu>
                     </p:menubar>
                 </h:form>

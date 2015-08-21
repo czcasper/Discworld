@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType
 @XmlAccessorType(XmlAccessType.NONE)
-public class Box extends X3DObject {
+public class X3DBox extends X3DObject {
 
     /**
      * The ccw field defines the ordering of the vertex coordinates of the geometry with respect to user-given or automatically generated

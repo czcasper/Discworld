@@ -12,9 +12,9 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author maslu02
  */
-@XmlType
+@XmlType(name = "appearance")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Appearance extends X3DObject {
+public class X3DAppearance extends X3DObject {
 // TODO validate this definition and implement child dependecies
     /**
      * Specify the threshold for the alpha clipping.
@@ -45,7 +45,7 @@ public class Appearance extends X3DObject {
 
     /**
      * The material field, if specified, shall contain a Material node. If the material field is NULL or unspecified, lighting is off (all
-     * lights are ignored during rendering of the object that references this Appearance) and the unlit object colour is (1, 1, 1).
+ lights are ignored during rendering of the object that references this X3DAppearance) and the unlit object colour is (1, 1, 1).
      */
     protected X3DMaterial material;
 
@@ -66,7 +66,7 @@ public class Appearance extends X3DObject {
 
     /**
      * The texture field, if specified, shall contain a texture nodes. If the texture node is NULL or the texture field is unspecified, the
-     * object that references this Appearance is not textured.
+ object that references this X3DAppearance is not textured.
      */
     protected X3DTextureNode texture;
 

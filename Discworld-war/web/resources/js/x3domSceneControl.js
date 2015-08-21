@@ -6,6 +6,12 @@ function test() {
     addObject('<transforms><transform translation="0 0 0"><shape><appearance><material diffuseColor="0 0 1"/></appearance><box size="1,1,1"/></shape></transform><transform translation="1 0 0"><shape><appearance><material diffuseColor="0 0 1"/></appearance><box size="1,1,1"/></shape></transform></transforms>');
 }
 
+
+function findX3DElements() {
+    var list = document.getElementsByTagName("x3d");
+    // TODO dynamic size detection
+}
+
 function addObject(def) {
     var doc = parser.parseFromString(def, "text/xml");
     var ot = document.getElementById('root');

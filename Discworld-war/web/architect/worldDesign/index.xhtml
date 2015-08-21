@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/architect/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListWorldTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="WorldListForm">
+                <h:outputText escape="false" value="#{sceneManager.initializeX3DomScene()}" />
+                <!--<x3d width='600px' height='400px'>--> 
+<!--                <x3d > 
+                    <scene> 
+                        <transform translation="0 0 0">
+                            <shape> 
+                                <appearance> 
+                                    <material diffuseColor='1,0,0'></material> 
+                                </appearance> 
+                                <box size="1,1,1"></box> 
+                            </shape>
+                        </transform>
+                        <transform translation="1 0 0">
+                            <shape> 
+                                <appearance> 
+                                    <material diffuseColor='1,1,0'></material> 
+                                </appearance> 
+                                <box size="1,1,1"></box> 
+                            </shape>
+                        </transform>
+                        <transform translation="1 1 0">
+                            <shape> 
+                                <appearance> 
+                                    <material diffuseColor='0,1,0'></material> 
+                                </appearance> 
+                                <box size="1,1,1"></box> 
+                            </shape>
+                        </transform>
+                    </scene> 
+                </x3d>-->
+            </h:form>
+
+            <!--            <ui:include src="Create.xhtml"/>
+                        <ui:include src="Edit.xhtml"/>
+                        <ui:include src="View.xhtml"/>-->
+        </ui:define>
+    </ui:composition>
+
+</html>
