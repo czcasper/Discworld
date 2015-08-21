@@ -1,12 +1,15 @@
 /*
  */
-package cz.a_d.discworld.geodata;
+package cz.a_d.discworld.datamodel.universe.geodata;
 
+import cz.a_d.discworld.geodata.Material;
+import cz.a_d.discworld.geodata.Time;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -16,6 +19,7 @@ import javax.persistence.OneToOne;
  * @author maslu02
  */
 @Entity
+@IdClass(SubCubeID.class)
 public class SubCube implements Serializable {
 
     private static final long serialVersionUID = 1L;

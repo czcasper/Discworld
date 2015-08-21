@@ -13,7 +13,7 @@
     </h:head>
     <h:body>
         <h:form id="form">
-            <p:remoteCommand name="onload" action="#{cubeManager.initializeX3DomScene}" autoRun="true" />
+            <p:remoteCommand name="onload" action="#{sceneManager.initializeScene()}" autoRun="true" />
             <p:layout fullPage="true">
                 <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
                     Header

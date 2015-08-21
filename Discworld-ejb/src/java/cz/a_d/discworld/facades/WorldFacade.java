@@ -5,17 +5,17 @@
  */
 package cz.a_d.discworld.facades;
 
-import cz.a_d.discworld.datamodel.universe.geodata.Cube;
+import cz.a_d.discworld.datamodel.universe.World;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author maslu02
+ * @author casper
  */
 @Stateless
-public class CubeFacade extends AbstractFacade<Cube> {
+public class WorldFacade extends AbstractFacade<World> {
     @PersistenceContext(unitName = "Discworld-ejbPU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class CubeFacade extends AbstractFacade<Cube> {
         return em;
     }
 
-    public CubeFacade() {
-        super(Cube.class);
+    public WorldFacade() {
+        super(World.class);
     }
     
 }

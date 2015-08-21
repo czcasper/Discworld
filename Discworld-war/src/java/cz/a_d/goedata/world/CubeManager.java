@@ -2,10 +2,11 @@
  */
 package cz.a_d.goedata.world;
 
-import cz.a_d.discworld.geodata.Cube;
+import cz.a_d.discworld.datamodel.universe.geodata.Cube;
 import cz.a_d.discworld.x3dom.CubeToX3dom;
 import cz.a_d.discworld.facades.CubeFacade;
-import cz.a_d.discworld.geodata.CubeID;
+import cz.a_d.discworld.datamodel.universe.geodata.CubeID;
+import cz.a_d.discworld.datamodel.universe.World;
 import cz.a_d.exceptions.ejb.RootCauseInfoException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,7 +29,6 @@ import org.primefaces.context.RequestContext;
  */
 @Named(value = "cubeManager")
 @SessionScoped
-@DeclareRoles("Developer")
 public class CubeManager implements Serializable {
 
     @EJB
@@ -39,13 +39,13 @@ public class CubeManager implements Serializable {
     @EJB
     protected CubeFacade cubeEM;
 
-    protected CubeID tmpCubeID;
+    protected Cube tmpCube;
 
     /**
      * Creates a new instance of CubeManager
      */
     public CubeManager() {
-        tmpCubeID = new CubeID(0, 0, 0, 0, 0);
+        tmpCube = new Cube(0l, 0l, 0l, 0l, new World());
     }
 
     @PostConstruct
@@ -67,8 +67,8 @@ public class CubeManager implements Serializable {
 
     @RolesAllowed("Developer")
     public void createCube(ActionEvent event) {
-        Cube tmp = new Cube();
-        tmp.setId(new CubeID(tmpCubeID));
+        Cube tmp = tmpCube;
+        
         FacesContext context = FacesContext.getCurrentInstance();
         try {
             cubeEM.create(tmp);
@@ -84,12 +84,12 @@ public class CubeManager implements Serializable {
         }
     }
 
-    public CubeID getTmpCube() {
-        return tmpCubeID;
+    public Cube getTmpCube() {
+        return tmpCube;
     }
 
-    public void setTmpCube(CubeID tmpCubeID) {
-        this.tmpCubeID = tmpCubeID;
+    public void setTmpCube(Cube tmpCubeID) {
+        this.tmpCube = tmpCubeID;
     }
 
     public long getMaxLong() {

@@ -9,6 +9,14 @@
     <role-name>Guest</role-name>
     <group-name>guest</group-name>
   </security-role-mapping>
+  <security-role-mapping>
+    <role-name>God</role-name>
+    <group-name>god</group-name>
+  </security-role-mapping>
+  <security-role-mapping>
+    <role-name>Player</role-name>
+    <group-name>player</group-name>
+  </security-role-mapping>
   <class-loader delegate="true"/>
   <jsp-config>
     <property name="keepgenerated" value="true">

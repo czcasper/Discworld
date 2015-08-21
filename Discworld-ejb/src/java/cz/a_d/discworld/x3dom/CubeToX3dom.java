@@ -2,8 +2,8 @@
  */
 package cz.a_d.discworld.x3dom;
 
-import cz.a_d.discworld.geodata.Cube;
-import cz.a_d.discworld.geodata.CubeID;
+import cz.a_d.discworld.datamodel.universe.geodata.Cube;
+import cz.a_d.discworld.datamodel.universe.geodata.CubeID;
 import java.io.StringWriter;
 import java.util.List;
 import java.util.logging.Level;
@@ -69,24 +69,24 @@ public class CubeToX3dom {
 
     protected Node createX3DomCube(Cube c) {
         Node retValue;
-        Element transform = doc.createElement("transform");
-        CubeID id = c.getId();
-        transform.setAttribute("translation", String.format("%d %d %d", id.getxAxis(), id.getyAxis(), id.getzAxis()));
-        
-        Element shape = doc.createElement("shape");
-        Element appearance = doc.createElement("appearance");
-        Element material = doc.createElement("material");
-        material.setAttribute("diffuseColor", "0 0 1");
-        appearance.appendChild(material);
-        Element box = doc.createElement("box");
-        box.setAttribute("size", "1,1,1");
-
-        shape.appendChild(appearance);
-        shape.appendChild(box);
-        transform.appendChild(shape);
-
-        retValue = transform;
-        return retValue;
+//        Element transform = doc.createElement("transform");
+//        CubeID id = c.getId();
+//        transform.setAttribute("translation", String.format("%d %d %d", id.getxAxis(), id.getyAxis(), id.getzAxis()));
+//        
+//        Element shape = doc.createElement("shape");
+//        Element appearance = doc.createElement("appearance");
+//        Element material = doc.createElement("material");
+//        material.setAttribute("diffuseColor", "0 0 1");
+//        appearance.appendChild(material);
+//        Element box = doc.createElement("box");
+//        box.setAttribute("size", "1,1,1");
+//
+//        shape.appendChild(appearance);
+//        shape.appendChild(box);
+//        transform.appendChild(shape);
+//
+//        retValue = transform;
+        return null;
     }
 
     protected String printDocToString(Node node) {

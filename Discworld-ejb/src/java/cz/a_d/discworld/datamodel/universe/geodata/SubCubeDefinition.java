@@ -1,6 +1,6 @@
 /*
  */
-package cz.a_d.discworld.geodata;
+package cz.a_d.discworld.datamodel.universe.geodata;
 
 import java.io.Serializable;
 import javax.persistence.Entity;

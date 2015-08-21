@@ -26,17 +26,21 @@
         <location>/faces/login/accessDenied.xhtml</location>
     </error-page>
     <security-constraint>
-        <display-name>Change World Definition</display-name>
+        <display-name>Universe Administration</display-name>
         <web-resource-collection>
             <web-resource-name>GamePage</web-resource-name>
             <description/>
-            <url-pattern>/game/test/*</url-pattern>
+            <url-pattern>/faces/architect/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description>Allow modify configuration of world</description>
             <role-name>Developer</role-name>
-            <role-name>Guest</role-name>
+            <role-name>God</role-name>
         </auth-constraint>
+        <user-data-constraint>
+            <description/>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
     </security-constraint>
     <security-constraint>
         <display-name>General Protection</display-name>
@@ -48,6 +52,25 @@
         <auth-constraint>
             <description/>
             <role-name>Developer</role-name>
+            <role-name>Player</role-name>
+            <role-name>God</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <description/>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>Guest in Universe</display-name>
+        <web-resource-collection>
+            <web-resource-name>Game</web-resource-name>
+            <description>Game observer account</description>
+            <url-pattern>/faces/game/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>HEAD</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
             <role-name>Guest</role-name>
         </auth-constraint>
         <user-data-constraint>
@@ -70,5 +93,13 @@
     <security-role>
         <description>Guest for presentation role</description>
         <role-name>Guest</role-name>
+    </security-role>
+    <security-role>
+        <description>God for presentation role</description>
+        <role-name>God</role-name>
+    </security-role>
+    <security-role>
+        <description>Player for presentation role</description>
+        <role-name>Player</role-name>
     </security-role>
 </web-app>
