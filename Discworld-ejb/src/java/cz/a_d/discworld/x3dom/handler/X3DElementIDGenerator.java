@@ -24,7 +24,7 @@ public class X3DElementIDGenerator {
             if (id != null && (!id.isEmpty())) {
                 Class<? extends X3DObject> destClass = destination.getClass();
                 if (destClass != null) {
-                    destination.setId(id + "_" + destClass.getName() + "_" + System.currentTimeMillis() + "_" + Math.random());
+                    destination.setId(id + "_" + destClass.getSimpleName()+ "_" + System.currentTimeMillis() + "_" + Math.random());
                     retValue = true;
                 }
             }

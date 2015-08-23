@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author maslu02
  */
-@XmlType
+@XmlType(name = "box")
 @XmlAccessorType(XmlAccessType.NONE)
 public class X3DBox extends X3DObject {
 

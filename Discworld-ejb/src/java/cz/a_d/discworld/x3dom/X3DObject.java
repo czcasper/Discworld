@@ -15,7 +15,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 public class X3DObject {
 
     /**
-     * Id used to target updates or deletes of diplayed/loaded object presented by x3d tag.
+     * Id used to target updates or deletes of diplayed/loaded object presented
+     * by x3d tag.
      */
     @XmlAttribute
     protected String id;
@@ -37,5 +38,4 @@ public class X3DObject {
     public void setId(String id) {
         this.id = id;
     }
-
 }

@@ -13,43 +13,31 @@
             <h:outputText value="#{bundle.ListWorldTitle}"></h:outputText>
         </ui:define>
 
+        <ui:define name="left_menubar">
+            <p:selectOneMenu id="world" value="#{sceneManager.world}" label="#{bundle.WorldTitle}">
+                <p:ajax listener="#{sceneManager.onWorldChange()}" update=":workspaceForm" oncomplete="x3dom.reload()"/>                    
+                <f:selectItems value="#{sceneManager.worldsDropDownData}" />
+            </p:selectOneMenu>
+            <p:spinner id="shadow" value="#{sceneManager.shadowLevel}" label="#{bundle.ShadowTitle}" max="#{sceneManager.maxLong}" min="#{sceneManager.mixLong}" >
+                <p:ajax listener="#{sceneManager.onWorldChange()}" update=":workspaceForm" oncomplete="x3dom.reload()"/>                    
+                <f:converter converterId="javax.faces.Long"/>
+            </p:spinner>
+            <span class="ui-separator">
+                <span class="ui-icon ui-icon-grip-dotted-vertical" />
+            </span>
+            <p:commandButton id="createToolBarButton" icon="ui-icon-plus"  title="#{bundle.Create}" oncomplete="PF('CubeCreateDialog').show()"/>                
+        </ui:define>
+
+
         <ui:define name="body">
-            <h:form id="WorldListForm">
+            <!--<button onclick="x3dom.reload()">Click me</button>--> 
+            <h:form id="workspaceForm">
                 <h:outputText escape="false" value="#{sceneManager.initializeX3DomScene()}" />
-                <!--<x3d width='600px' height='400px'>--> 
-<!--                <x3d > 
-                    <scene> 
-                        <transform translation="0 0 0">
-                            <shape> 
-                                <appearance> 
-                                    <material diffuseColor='1,0,0'></material> 
-                                </appearance> 
-                                <box size="1,1,1"></box> 
-                            </shape>
-                        </transform>
-                        <transform translation="1 0 0">
-                            <shape> 
-                                <appearance> 
-                                    <material diffuseColor='1,1,0'></material> 
-                                </appearance> 
-                                <box size="1,1,1"></box> 
-                            </shape>
-                        </transform>
-                        <transform translation="1 1 0">
-                            <shape> 
-                                <appearance> 
-                                    <material diffuseColor='0,1,0'></material> 
-                                </appearance> 
-                                <box size="1,1,1"></box> 
-                            </shape>
-                        </transform>
-                    </scene> 
-                </x3d>-->
             </h:form>
 
-            <!--            <ui:include src="Create.xhtml"/>
-                        <ui:include src="Edit.xhtml"/>
-                        <ui:include src="View.xhtml"/>-->
+            <ui:include src="createCube.xhtml"/>
+            <!--                        <ui:include src="Edit.xhtml"/>
+                                    <ui:include src="View.xhtml"/>-->
         </ui:define>
     </ui:composition>
 

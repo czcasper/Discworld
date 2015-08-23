@@ -8,6 +8,7 @@ import cz.a_d.goedata.world.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -65,6 +66,7 @@ public class WorldController implements Serializable {
 
     public World prepareCreate() {
         selected = new World();
+        selected.setStartDate(new Date(System.currentTimeMillis()));
         initializeEmbeddableKey();
         return selected;
     }
