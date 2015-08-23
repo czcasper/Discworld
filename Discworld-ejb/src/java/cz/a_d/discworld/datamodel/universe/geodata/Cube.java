@@ -6,6 +6,7 @@ import cz.a_d.discworld.datamodel.universe.World;
 import cz.a_d.discworld.geodata.Material;
 import cz.a_d.discworld.geodata.Time;
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -119,7 +120,7 @@ public class Cube implements Serializable {
      *
      * @return the value of zAxis
      */
-    public Long getzAxis() {
+    public Long getZAxis() {
         return zAxis;
     }
 
@@ -128,7 +129,7 @@ public class Cube implements Serializable {
      *
      * @param zAxis new value of zAxis
      */
-    public void setzAxis(Long zAxis) {
+    public void setZAxis(Long zAxis) {
         this.zAxis = zAxis;
     }
 
@@ -137,7 +138,7 @@ public class Cube implements Serializable {
      *
      * @return the value of yAxis
      */
-    public Long getyAxis() {
+    public Long getYAxis() {
         return yAxis;
     }
 
@@ -146,7 +147,7 @@ public class Cube implements Serializable {
      *
      * @param yAxis new value of yAxis
      */
-    public void setyAxis(Long yAxis) {
+    public void setYAxis(Long yAxis) {
         this.yAxis = yAxis;
     }
 
@@ -155,7 +156,7 @@ public class Cube implements Serializable {
      *
      * @return the value of xAxis
      */
-    public Long getxAxis() {
+    public Long getXAxis() {
         return xAxis;
     }
 
@@ -164,7 +165,7 @@ public class Cube implements Serializable {
      *
      * @param xAxis new value of xAxis
      */
-    public void setxAxis(Long xAxis) {
+    public void setXAxis(Long xAxis) {
         this.xAxis = xAxis;
     }
 
@@ -203,4 +204,55 @@ public class Cube implements Serializable {
     public void setTime(Time time) {
         this.time = time;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 73 * hash + Objects.hashCode(this.xAxis);
+        hash = 73 * hash + Objects.hashCode(this.yAxis);
+        hash = 73 * hash + Objects.hashCode(this.zAxis);
+        hash = 73 * hash + Objects.hashCode(this.shadowLevel);
+        hash = 73 * hash + Objects.hashCode(this.world);
+        hash = 73 * hash + Objects.hashCode(this.material);
+        hash = 73 * hash + Objects.hashCode(this.time);
+        hash = 73 * hash + Objects.hashCode(this.subCubeDefinition);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cube other = (Cube) obj;
+        if (!Objects.equals(this.xAxis, other.xAxis)) {
+            return false;
+        }
+        if (!Objects.equals(this.yAxis, other.yAxis)) {
+            return false;
+        }
+        if (!Objects.equals(this.zAxis, other.zAxis)) {
+            return false;
+        }
+        if (!Objects.equals(this.shadowLevel, other.shadowLevel)) {
+            return false;
+        }
+        if (!Objects.equals(this.world, other.world)) {
+            return false;
+        }
+        if (!Objects.equals(this.material, other.material)) {
+            return false;
+        }
+        if (!Objects.equals(this.time, other.time)) {
+            return false;
+        }
+        if (!Objects.equals(this.subCubeDefinition, other.subCubeDefinition)) {
+            return false;
+        }
+        return true;
+    }    
+    
 }

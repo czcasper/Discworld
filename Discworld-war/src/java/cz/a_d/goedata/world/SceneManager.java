@@ -13,6 +13,7 @@ import cz.a_d.discworld.x3dom.X3d;
 import cz.a_d.discworld.x3dom.data.model.X3DScene;
 import cz.a_d.discworld.x3dom.data.model.iterchange.scene.X3DTransform;
 import cz.a_d.discworld.x3dom.handler.SceneDataTransferHandler;
+import cz.a_d.exceptions.helpers.SelectableDataList;
 import cz.a_d.goedata.world.util.JsfUtil;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.ListDataModel;
 import javax.xml.bind.JAXBException;
 import org.primefaces.context.RequestContext;
 
@@ -63,6 +65,28 @@ public class SceneManager implements Serializable {
 
     protected X3d scene;
 
+    protected List<Cube> selectedCubes;
+
+    protected Map<Cube, X3DTransform> cubeToScene;
+
+    /**
+     * Get the value of selectedCubes
+     *
+     * @return the value of selectedCubes
+     */
+    public List<Cube> getSelectedCubes() {
+        return selectedCubes;
+    }
+
+    /**
+     * Set the value of selectedCubes
+     *
+     * @param selectedCubes new value of selectedCubes
+     */
+    public void setSelectedCubes(List<Cube> selectedCubes) {
+        this.selectedCubes = selectedCubes;
+    }
+
     /**
      * Get the value of shadowLevel
      *
@@ -78,7 +102,7 @@ public class SceneManager implements Serializable {
     /**
      * Set the value of shadowLevel
      *
-     * @param shadowLevel new value of shadowLevel
+     * @param shadowLevel new value of shadowL
      */
     public void setShadowLevel(Long shadowLevel) {
         this.shadowLevel = shadowLevel;
@@ -116,7 +140,16 @@ public class SceneManager implements Serializable {
             if ((work != null) && (!work.isEmpty())) {
                 world = work.get(0);
             }
+        } else if (worlds != null) {
+            if (!worlds.contains(world)) {
+                if (worlds.isEmpty()) {
+                    world = null;
+                } else {
+                    world = worlds.get(0);
+                }
+            }
         }
+
         return world;
     }
 
@@ -132,6 +165,8 @@ public class SceneManager implements Serializable {
     public void onWorldChange() {
         if (world != null) {
             cubes = null;
+            cubeToScene = null;
+            selectedCubes = null;
         }
     }
 
@@ -160,6 +195,7 @@ public class SceneManager implements Serializable {
         cube.setShadowLevel(getShadowLevel());
         persistCube(JsfUtil.PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("CubeCreated"));
         if (!JsfUtil.isValidationFailed()) {
+            selectedCubes = null;
             List<X3DScene> scenes = scene.getScene();
             if (scenes != null && (!scenes.isEmpty())) {
                 X3DScene get = scenes.get(0);
@@ -171,13 +207,54 @@ public class SceneManager implements Serializable {
 
                 get.addTransform(createCube);
                 cubes.add(cube);
+                cubeEM.flush();
             }
         }
 
     }
 
+    public void deleteCubes() {
+        if (selectedCubes != null && (!selectedCubes.isEmpty())) {
+            try {
+                cubeEM.deleteCubes(selectedCubes);
+                cubes.removeAll(selectedCubes);
+                cubeEM.flush();
+
+                List<X3DScene> scenes = scene.getScene();
+                if (scenes != null && (!scenes.isEmpty())) {
+                    X3DScene get = scenes.get(0);
+                    for (Cube select : selectedCubes) {
+                        if (cubeToScene.containsKey(select)) {
+                            X3DTransform cubeNode = cubeToScene.get(select);
+                            if (get.removeTransform(cubeNode)) {
+                                cubeToScene.remove(select);
+                            }
+                        }
+                    }
+                }
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CubeDeleted"));
+            } catch (EJBException ex) {
+                String msg = "";
+                Throwable cause = ex.getCause();
+                JsfUtil.setValidationFailed();
+                if (cause != null) {
+                    msg = cause.getLocalizedMessage();
+                }
+                if (msg.length() > 0) {
+                    JsfUtil.addErrorMessage(msg);
+                } else {
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+
+        }
+    }
+
     public void initializeScene() {
-        cubes = cubeEM.findCubes(getWorld());
+        cubes = cubeEM.findCubes(getWorld(), getShadowLevel());
     }
 
     public List<Cube> getCubes() {
@@ -187,9 +264,18 @@ public class SceneManager implements Serializable {
         return cubes;
     }
 
+    public SelectableDataList<Cube> getSelectableCubes() {
+        return new SelectableDataList<>(getCubes());
+    }
+
     public String initializeX3DomScene() {
         String retValue = "";
-        scene = dataHandler.createScene(getCubes(), "mainWorkSpace");
+        if (cubeToScene == null) {
+            cubeToScene = new HashMap<>();
+        } else {
+            cubeToScene.clear();
+        }
+        scene = dataHandler.createScene(getCubes(), "mainWorkSpace", cubeToScene);
         if (scene != null) {
             try {
                 retValue = dataHandler.convert(scene);
@@ -203,15 +289,18 @@ public class SceneManager implements Serializable {
     private void persistCube(JsfUtil.PersistAction persistAction, String successMessage) {
         if (cube != null) {
             try {
-                if (persistAction != JsfUtil.PersistAction.DELETE) {
-                    cubeEM.edit(cube);
-                } else {
+                if (persistAction == JsfUtil.PersistAction.CREATE) {
+                    cubeEM.create(cube);
+                } else if (persistAction == JsfUtil.PersistAction.DELETE) {
                     cubeEM.remove(cube);
+                } else {
+                    cubeEM.edit(cube);
                 }
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();
+                JsfUtil.setValidationFailed();;
                 if (cause != null) {
                     msg = cause.getLocalizedMessage();
                 }

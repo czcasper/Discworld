@@ -15,17 +15,18 @@
 
         <ui:define name="left_menubar">
             <p:selectOneMenu id="world" value="#{sceneManager.world}" label="#{bundle.WorldTitle}">
-                <p:ajax listener="#{sceneManager.onWorldChange()}" update=":workspaceForm" oncomplete="x3dom.reload()"/>                    
+                <p:ajax process="@this" listener="#{sceneManager.onWorldChange()}" update="@form,:workspaceForm,:CubeDeleteDlg" oncomplete="x3dom.reload()"/>                    
                 <f:selectItems value="#{sceneManager.worldsDropDownData}" />
             </p:selectOneMenu>
-            <p:spinner id="shadow" value="#{sceneManager.shadowLevel}" label="#{bundle.ShadowTitle}" max="#{sceneManager.maxLong}" min="#{sceneManager.mixLong}" >
-                <p:ajax listener="#{sceneManager.onWorldChange()}" update=":workspaceForm" oncomplete="x3dom.reload()"/>                    
-                <f:converter converterId="javax.faces.Long"/>
+            <p:spinner value="#{sceneManager.shadowLevel}" title="#{bundle.ShadowTitle}">
+                <p:ajax listener="#{sceneManager.onWorldChange()}" update="@form,:workspaceForm,:CubeDeleteDlg" oncomplete="x3dom.reload()"/>                    
+                <!--<f:converter converterId="javax.faces.Long"/>-->
             </p:spinner>
             <span class="ui-separator">
                 <span class="ui-icon ui-icon-grip-dotted-vertical" />
             </span>
-            <p:commandButton id="createToolBarButton" icon="ui-icon-plus"  title="#{bundle.Create}" oncomplete="PF('CubeCreateDialog').show()"/>                
+            <p:commandButton id="createToolBarButton" icon="ui-icon-plus" title="#{bundle.Create}" update="@form,:CubeDeleteDlg" oncomplete="PF('CubeCreateDialog').show()"/>
+            <p:commandButton id="deleteToolBarButton" icon="ui-icon-trash" title="#{bundle.Delete}" update="@form" disabled="#{sceneManager.cubes.size()==0}" oncomplete="PF('CubeDeleteDialog').show()"/>
         </ui:define>
 
 
@@ -36,6 +37,7 @@
             </h:form>
 
             <ui:include src="createCube.xhtml"/>
+            <ui:include src="deleteCube.xhtml"/>
             <!--                        <ui:include src="Edit.xhtml"/>
                                     <ui:include src="View.xhtml"/>-->
         </ui:define>

@@ -19,6 +19,7 @@ import cz.a_d.discworld.x3dom.exceptions.X3DException;
 import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -88,7 +89,7 @@ public class SceneDataTransferHandler implements Serializable {
         return retValue;
     }
 
-    public X3d createScene(List<Cube> cubes, String id) {
+    public X3d createScene(List<Cube> cubes, String id, Map<Cube, X3DTransform> cache) {
         X3d retValue = null;
         if (cubes != null) {
             retValue = new X3d();
@@ -103,6 +104,9 @@ public class SceneDataTransferHandler implements Serializable {
                     X3DTransform created = createCube(scena, cube);
                     if (created != null) {
                         scena.addTransform(created);
+                        if(cache!=null){
+                            cache.put(cube, created);
+                        }
                     }
                 }
             }
@@ -117,9 +121,9 @@ public class SceneDataTransferHandler implements Serializable {
                 retValue = new X3DTransform();
                 generator.generateID(parent, retValue);
                 X3DAxisVector position = new X3DAxisVector();
-                position.setX(cube.getxAxis());
-                position.setY(cube.getyAxis());
-                position.setZ(cube.getzAxis());
+                position.setX(cube.getXAxis());
+                position.setY(cube.getYAxis());
+                position.setZ(cube.getZAxis());
                 retValue.setTranslation(position);
 
                 X3DShape shape = new X3DShape();

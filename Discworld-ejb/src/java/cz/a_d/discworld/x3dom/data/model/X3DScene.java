@@ -214,6 +214,10 @@ public class X3DScene extends X3DObject {
         }
     }
 
+    public boolean removeTransform(X3DTransform transform) {
+        return this.transform.remove(transform);
+    }
+
     /**
      * Get the value of timeSensor
      *

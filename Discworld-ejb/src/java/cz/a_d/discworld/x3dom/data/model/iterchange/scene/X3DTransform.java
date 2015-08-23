@@ -17,6 +17,7 @@ import cz.a_d.discworld.x3dom.data.model.modelType.scene.ProtoInstance;
 import cz.a_d.discworld.x3dom.data.model.modelType.scene.SceneGraphStructure;
 import cz.a_d.discworld.x3dom.exceptions.X3DException;
 import java.util.List;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -42,7 +43,8 @@ public class X3DTransform extends X3DObject {
     protected X3DAxisVector bboxSize;
 
     /**
-     * The center field specifies a translation offset from the origin of the local coordinate system (0,0,0).
+     * The center field specifies a translation offset from the origin of the
+     * local coordinate system (0,0,0).
      */
     protected X3DAxisVector center;
 
@@ -64,14 +66,18 @@ public class X3DTransform extends X3DObject {
     protected X3DRotation rotation;
 
     /**
-     * The scale field specifies a non-uniform scale of the coordinate system. Scale values may have any value: positive, negative
-     * (indicating a reflection), or zero. A value of zero indicates that any child geometry shall not be displayed. Default value: 1,1,1
+     * The scale field specifies a non-uniform scale of the coordinate system.
+     * Scale values may have any value: positive, negative (indicating a
+     * reflection), or zero. A value of zero indicates that any child geometry
+     * shall not be displayed. Default value: 1,1,1
      */
     protected X3DAxisVector scale;
 
     /**
-     * The scaleOrientation specifies a rotation of the coordinate system before the scale (to specify scales in arbitrary orientations).
-     * The scaleOrientation applies only to the scale operation. Default value:0,0,1,0
+     * The scaleOrientation specifies a rotation of the coordinate system before
+     * the scale (to specify scales in arbitrary orientations). The
+     * scaleOrientation applies only to the scale operation. Default
+     * value:0,0,1,0
      */
     protected X3DRotation scaleOrientation;
 
@@ -593,7 +599,8 @@ public class X3DTransform extends X3DObject {
     /**
      * Get translation definition if form of instance of object.
      *
-     * @return null in case when default translation is used, otherwise instance of vector with axis of translation values.
+     * @return null in case when default translation is used, otherwise instance
+     * of vector with axis of translation values.
      */
     public X3DAxisVector getTranslationObj() {
         return translation;
@@ -618,7 +625,8 @@ public class X3DTransform extends X3DObject {
     /**
      * Set translation value by using instance of vector with axes.
      *
-     * @param translation can be null to set default translation value, or instnce of valid vector definition.
+     * @param translation can be null to set default translation value, or
+     * instnce of valid vector definition.
      */
     public void setTranslation(X3DAxisVector translation) {
         this.translation = translation;
@@ -641,7 +649,8 @@ public class X3DTransform extends X3DObject {
     /**
      * Get scale orientation if object representation.
      *
-     * @return null in case when default representation is used, otherwise valid instance of rotation vector.
+     * @return null in case when default representation is used, otherwise valid
+     * instance of rotation vector.
      */
     public X3DRotation getScaleOrientationObj() {
         return scaleOrientation;
@@ -666,8 +675,9 @@ public class X3DTransform extends X3DObject {
     /**
      * Set scale orientation by using instance of rotation vector.
      *
-     * @param scaleOrientation null in case when instance should be swith to use default defintion, otherwise valid instance with definition
-     *                         of scale orientation
+     * @param scaleOrientation null in case when instance should be swith to use
+     * default defintion, otherwise valid instance with definition of scale
+     * orientation
      */
     public void setScaleOrientation(X3DRotation scaleOrientation) {
         this.scaleOrientation = scaleOrientation;
@@ -690,7 +700,8 @@ public class X3DTransform extends X3DObject {
     /**
      * Get scale in form of instance of vector of values.
      *
-     * @return null in case when default value is used, otherwise initializes instance of vactor with current scale configuration.
+     * @return null in case when default value is used, otherwise initializes
+     * instance of vactor with current scale configuration.
      */
     public X3DAxisVector getScaleObj() {
         return scale;
@@ -715,7 +726,8 @@ public class X3DTransform extends X3DObject {
     /**
      * Set scale value by using instance of vector.
      *
-     * @param scale can by null in case when this instance should use default value, otherwise valid scale vector configuration is required.
+     * @param scale can by null in case when this instance should use default
+     * value, otherwise valid scale vector configuration is required.
      */
     public void setScale(X3DAxisVector scale) {
         this.scale = scale;
@@ -738,7 +750,8 @@ public class X3DTransform extends X3DObject {
     /**
      * Get rotation configuration values in form of instance of rotation vector.
      *
-     * @return null in case when default rotation value is used, otherwise intialized instance with current configuration.
+     * @return null in case when default rotation value is used, otherwise
+     * intialized instance with current configuration.
      */
     public X3DRotation getRotationObj() {
         return rotation;
@@ -763,7 +776,8 @@ public class X3DTransform extends X3DObject {
     /**
      * Set rotation by using instance of rotation vector.
      *
-     * @param rotation null in case when default rotation configuration should be used, otherwise valid rotation vector configuration.
+     * @param rotation null in case when default rotation configuration should
+     * be used, otherwise valid rotation vector configuration.
      */
     public void setRotation(X3DRotation rotation) {
         this.rotation = rotation;
@@ -822,7 +836,8 @@ public class X3DTransform extends X3DObject {
     /**
      * Get center coordinated in instance of vector with axes.
      *
-     * @return null in case when default configuration is used, otherwise instance with valid configuration.
+     * @return null in case when default configuration is used, otherwise
+     * instance with valid configuration.
      */
     public X3DAxisVector getCenterObj() {
         return center;
@@ -847,7 +862,8 @@ public class X3DTransform extends X3DObject {
     /**
      * Set center configuration by using instnce of vector with coordinates.
      *
-     * @param center null in case when current instance should use default values, otherwise valid instance of vector with coordinates.
+     * @param center null in case when current instance should use default
+     * values, otherwise valid instance of vector with coordinates.
      */
     public void setCenter(X3DAxisVector center) {
         this.center = center;
@@ -870,7 +886,8 @@ public class X3DTransform extends X3DObject {
     /**
      * Get size of bbox in form of instance of vector with values.
      *
-     * @return null in case when default values of bbox size is used, otherwise valid instance of vector with values.
+     * @return null in case when default values of bbox size is used, otherwise
+     * valid instance of vector with values.
      */
     public X3DAxisVector getBboxSizeObj() {
         return bboxSize;
@@ -895,7 +912,8 @@ public class X3DTransform extends X3DObject {
     /**
      * Set size of bbox by using vector of values.
      *
-     * @param bboxSize null in case when current instance should use default configuration, otherwise vector with valid values for size.
+     * @param bboxSize null in case when current instance should use default
+     * configuration, otherwise vector with valid values for size.
      */
     public void setBboxSize(X3DAxisVector bboxSize) {
         this.bboxSize = bboxSize;
@@ -918,7 +936,8 @@ public class X3DTransform extends X3DObject {
     /**
      * Get center of bbox coordinates in form of instance of vector.
      *
-     * @return null in case when default configuration is used, otherwise instance of vector with valid configuration.
+     * @return null in case when default configuration is used, otherwise
+     * instance of vector with valid configuration.
      */
     public X3DAxisVector getBboxCenterObj() {
         return bboxCenter;
@@ -943,11 +962,161 @@ public class X3DTransform extends X3DObject {
     /**
      * Set center of bbox by using instnce of vecotor with coordinates.
      *
-     * @param bboxCenter null in case when current instance should use default configuration, otherwise valid instance of vector with
-     *                   coordinates.
+     * @param bboxCenter null in case when current instance should use default
+     * configuration, otherwise valid instance of vector with coordinates.
      */
     public void setBboxCenter(X3DAxisVector bboxCenter) {
         this.bboxCenter = bboxCenter;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(this.bboxCenter);
+        hash = 29 * hash + Objects.hashCode(this.bboxSize);
+        hash = 29 * hash + Objects.hashCode(this.center);
+        hash = 29 * hash + Objects.hashCode(this.metadata);
+        hash = 29 * hash + Objects.hashCode(this.render);
+        hash = 29 * hash + Objects.hashCode(this.rotation);
+        hash = 29 * hash + Objects.hashCode(this.scale);
+        hash = 29 * hash + Objects.hashCode(this.scaleOrientation);
+        hash = 29 * hash + Objects.hashCode(this.translation);
+        hash = 29 * hash + Objects.hashCode(this.dis);
+        hash = 29 * hash + Objects.hashCode(this.full);
+        hash = 29 * hash + Objects.hashCode(this.geo);
+        hash = 29 * hash + Objects.hashCode(this.humanoidAnimation);
+        hash = 29 * hash + Objects.hashCode(this.immersive);
+        hash = 29 * hash + Objects.hashCode(this.interactive);
+        hash = 29 * hash + Objects.hashCode(this.nurbs);
+        hash = 29 * hash + Objects.hashCode(this.protoInstance);
+        hash = 29 * hash + Objects.hashCode(this.sceneGraphStructure);
+        hash = 29 * hash + Objects.hashCode(this.background);
+        hash = 29 * hash + Objects.hashCode(this.colorInterpolator);
+        hash = 29 * hash + Objects.hashCode(this.coordinateInterpolator);
+        hash = 29 * hash + Objects.hashCode(this.directionalLight);
+        hash = 29 * hash + Objects.hashCode(this.group);
+        hash = 29 * hash + Objects.hashCode(this.navigationInfo);
+        hash = 29 * hash + Objects.hashCode(this.normalInterpolator);
+        hash = 29 * hash + Objects.hashCode(this.orientationInterpolator);
+        hash = 29 * hash + Objects.hashCode(this.positionInterpolator);
+        hash = 29 * hash + Objects.hashCode(this.scalarInterpolator);
+        hash = 29 * hash + Objects.hashCode(this.shape);
+        hash = 29 * hash + Objects.hashCode(this.timeSensor);
+        hash = 29 * hash + Objects.hashCode(this.transform);
+        hash = 29 * hash + Objects.hashCode(this.viewpoint);
+        hash = 29 * hash + Objects.hashCode(this.worldInfo);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final X3DTransform other = (X3DTransform) obj;
+        if (!Objects.equals(this.bboxCenter, other.bboxCenter)) {
+            return false;
+        }
+        if (!Objects.equals(this.bboxSize, other.bboxSize)) {
+            return false;
+        }
+        if (!Objects.equals(this.center, other.center)) {
+            return false;
+        }
+        if (!Objects.equals(this.metadata, other.metadata)) {
+            return false;
+        }
+        if (!Objects.equals(this.render, other.render)) {
+            return false;
+        }
+        if (!Objects.equals(this.rotation, other.rotation)) {
+            return false;
+        }
+        if (!Objects.equals(this.scale, other.scale)) {
+            return false;
+        }
+        if (!Objects.equals(this.scaleOrientation, other.scaleOrientation)) {
+            return false;
+        }
+        if (!Objects.equals(this.translation, other.translation)) {
+            return false;
+        }
+        if (!Objects.equals(this.dis, other.dis)) {
+            return false;
+        }
+        if (!Objects.equals(this.full, other.full)) {
+            return false;
+        }
+        if (!Objects.equals(this.geo, other.geo)) {
+            return false;
+        }
+        if (!Objects.equals(this.humanoidAnimation, other.humanoidAnimation)) {
+            return false;
+        }
+        if (!Objects.equals(this.immersive, other.immersive)) {
+            return false;
+        }
+        if (!Objects.equals(this.interactive, other.interactive)) {
+            return false;
+        }
+        if (!Objects.equals(this.nurbs, other.nurbs)) {
+            return false;
+        }
+        if (!Objects.equals(this.protoInstance, other.protoInstance)) {
+            return false;
+        }
+        if (!Objects.equals(this.sceneGraphStructure, other.sceneGraphStructure)) {
+            return false;
+        }
+        if (!Objects.equals(this.background, other.background)) {
+            return false;
+        }
+        if (!Objects.equals(this.colorInterpolator, other.colorInterpolator)) {
+            return false;
+        }
+        if (!Objects.equals(this.coordinateInterpolator, other.coordinateInterpolator)) {
+            return false;
+        }
+        if (!Objects.equals(this.directionalLight, other.directionalLight)) {
+            return false;
+        }
+        if (!Objects.equals(this.group, other.group)) {
+            return false;
+        }
+        if (!Objects.equals(this.navigationInfo, other.navigationInfo)) {
+            return false;
+        }
+        if (!Objects.equals(this.normalInterpolator, other.normalInterpolator)) {
+            return false;
+        }
+        if (!Objects.equals(this.orientationInterpolator, other.orientationInterpolator)) {
+            return false;
+        }
+        if (!Objects.equals(this.positionInterpolator, other.positionInterpolator)) {
+            return false;
+        }
+        if (!Objects.equals(this.scalarInterpolator, other.scalarInterpolator)) {
+            return false;
+        }
+        if (!Objects.equals(this.shape, other.shape)) {
+            return false;
+        }
+        if (!Objects.equals(this.timeSensor, other.timeSensor)) {
+            return false;
+        }
+        if (!Objects.equals(this.transform, other.transform)) {
+            return false;
+        }
+        if (!Objects.equals(this.viewpoint, other.viewpoint)) {
+            return false;
+        }
+        if (!Objects.equals(this.worldInfo, other.worldInfo)) {
+            return false;
+        }
+        return true;
     }
 
 }

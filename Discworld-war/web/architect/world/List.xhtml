@@ -19,7 +19,7 @@
             </span>
             <p:commandButton id="viewToolBarButton"   icon="ui-icon-search"  title="#{bundle.View}" update=":WorldViewForm" oncomplete="PF('WorldViewDialog').show()" disabled="#{empty worldController.selected}"/>
             <p:commandButton id="editToolBarButton"   icon="ui-icon-pencil"  title="#{bundle.Edit}" update=":WorldEditForm" oncomplete="PF('WorldEditDialog').show()" disabled="#{empty worldController.selected}"/>
-            <p:commandButton id="deleteToolBarButton" icon="ui-icon-trash"   title="#{bundle.Delete}" actionListener="#{worldController.destroy}" update=":growl,:WorldListForm:datalist" disabled="#{empty worldController.selected}"/>
+            <p:commandButton id="deleteToolBarButton" icon="ui-icon-trash"   title="#{bundle.Delete}" actionListener="#{worldController.destroyWorld()}" update=":growl,:WorldListForm:datalist" disabled="#{empty worldController.selected}"/>
         </ui:define>
 
         <ui:define name="body">

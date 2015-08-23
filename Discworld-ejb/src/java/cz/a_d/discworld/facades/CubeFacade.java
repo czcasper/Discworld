@@ -8,7 +8,10 @@ package cz.a_d.discworld.facades;
 import cz.a_d.discworld.datamodel.universe.World;
 import cz.a_d.discworld.datamodel.universe.geodata.Cube;
 import cz.a_d.discworld.datamodel.universe.geodata.Cube_;
+import cz.a_d.discworld.x3dom.data.model.iterchange.scene.X3DTransform;
 import java.util.List;
+import java.util.Map;
+import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -36,16 +39,26 @@ public class CubeFacade extends AbstractFacade<Cube> {
         super(Cube.class);
     }
 
-    public List<Cube> findCubes(World world) {
+    public List<Cube> findCubes(World world, Long shadowLevel) {
         List<Cube> retValue = null;
-        if (world != null) {
+        if (world != null && shadowLevel != null) {
             CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
             CriteriaQuery<Cube> findAllInWorld = criteriaBuilder.createQuery(Cube.class);
             Root<Cube> from = findAllInWorld.from(Cube.class);
-            CriteriaQuery<Cube> where = findAllInWorld.where(criteriaBuilder.equal(from.get(Cube_.world), world));
+            CriteriaQuery<Cube> where = findAllInWorld.where(
+                    criteriaBuilder.and(criteriaBuilder.equal(from.get(Cube_.world), world), criteriaBuilder.equal(from.get(Cube_.shadowLevel), shadowLevel))
+            );
             TypedQuery<Cube> cubeQuery = em.createQuery(where);
             retValue = cubeQuery.getResultList();
         }
         return retValue;
+    }
+
+    public void deleteCubes(List<Cube> cubes) throws EJBException {
+        if (cubes != null && (!cubes.isEmpty())) {
+            for (Cube cube : cubes) {
+                super.remove(cube);
+            }
+        }
     }
 }

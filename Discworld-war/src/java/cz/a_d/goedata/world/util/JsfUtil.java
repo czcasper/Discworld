@@ -22,6 +22,10 @@ public class JsfUtil {
         }
         return items;
     }
+    
+    public static void setValidationFailed(){
+        FacesContext.getCurrentInstance().validationFailed();
+    }
 
     public static boolean isValidationFailed() {
         return FacesContext.getCurrentInstance().isValidationFailed();

@@ -12,19 +12,19 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{sceneManager.cube != null}">
                         <p:outputLabel value="#{bundle.CreateCubeLabel_xAxis}" for="xAxis" />
-                        <p:spinner id="xAxis" required="true" value="#{sceneManager.cube.xAxis}" label="#{bundle.CreateCubeTitle_xAxis}" max="#{sceneManager.maxLong}" min="#{sceneManager.mixLong}">
+                        <p:spinner id="xAxis" required="true" value="#{sceneManager.cube.XAxis}" label="#{bundle.CreateCubeTitle_xAxis}" max="#{sceneManager.maxLong}" min="#{sceneManager.mixLong}">
                             <f:converter converterId="javax.faces.Long"/>
                         </p:spinner>
                         <p:outputLabel value="#{bundle.CreateCubeLabel_yAxis}" for="yAxis" />
-                        <p:spinner id="yAxis" value="#{sceneManager.cube.yAxis}" required="true" label="#{bundle.CreateCubeTitle_yAxis}" max="#{sceneManager.maxLong}" min="#{sceneManager.mixLong}">
+                        <p:spinner id="yAxis" value="#{sceneManager.cube.YAxis}" required="true" label="#{bundle.CreateCubeTitle_yAxis}" max="#{sceneManager.maxLong}" min="#{sceneManager.mixLong}">
                             <f:converter converterId="javax.faces.Long"/>
                         </p:spinner>
                         <p:outputLabel value="#{bundle.CreateCubeLabel_zAxis}" for="zAxis" />
-                        <p:spinner id="zAxis" value="#{sceneManager.cube.zAxis}" required="true" label="#{bundle.CreateCubeTitle_zAxis}" max="#{sceneManager.maxLong}" min="#{sceneManager.mixLong}">
+                        <p:spinner id="zAxis" value="#{sceneManager.cube.ZAxis}" required="true" label="#{bundle.CreateCubeTitle_zAxis}" max="#{sceneManager.maxLong}" min="#{sceneManager.mixLong}">
                             <f:converter converterId="javax.faces.Long"/>
                         </p:spinner>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{sceneManager.createCube()}" value="#{bundle.Save}" update="display,:growl" oncomplete="handleSubmit(args,'CubeCreateDialog');"/>
+                    <p:commandButton actionListener="#{sceneManager.createCube()}" value="#{bundle.Save}" update="display,:growl,:CubeDeleteDlg" oncomplete="handleSubmit(args,'CubeCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="CubeCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

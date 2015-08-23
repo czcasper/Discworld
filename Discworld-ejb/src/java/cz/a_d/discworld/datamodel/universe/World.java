@@ -8,6 +8,7 @@ package cz.a_d.discworld.datamodel.universe;
 import cz.a_d.discworld.datamodel.users.User;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -108,27 +109,40 @@ public class World implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.creator);
+        hash = 41 * hash + Objects.hashCode(this.id);
+        hash = 41 * hash + Objects.hashCode(this.name);
+        hash = 41 * hash + Objects.hashCode(this.description);
+        hash = 41 * hash + Objects.hashCode(this.startDate);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof World)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        World other = (World) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final World other = (World) obj;
+        if (!Objects.equals(this.creator, other.creator)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.startDate, other.startDate)) {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "cz.a_d.discworld.geodata.World[ id=" + id + " ]";
     }
 
 }
