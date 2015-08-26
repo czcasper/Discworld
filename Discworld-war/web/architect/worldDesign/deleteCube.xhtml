@@ -10,7 +10,8 @@
             <h:form id="CubeDeleteForm">
                 <h:panelGroup id="deleteDisplay" >
                     <p:panelGrid columns="2" rendered="#{sceneManager.cubes != null}">
-                        <p:dataTable id="cubeDataTable" var="cube" value="#{sceneManager.selectableCubes}" selectionMode="multiple" selection="#{sceneManager.selectedCubes}">
+                        <p:dataTable id="cubeDataTable" var="cube" value="#{sceneManager.selectableCubeList}" 
+                                     rows="10" selectionMode="multiple" selection="#{sceneManager.selectedCubes}" paginator="true">
                             <f:facet name="header">
                                 #{bundle.CubeOnSceneTile}
                             </f:facet>

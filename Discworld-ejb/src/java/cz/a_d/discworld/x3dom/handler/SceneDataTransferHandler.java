@@ -7,6 +7,7 @@ package cz.a_d.discworld.x3dom.handler;
 
 import cz.a_d.discworld.datamodel.universe.geodata.Cube;
 import cz.a_d.discworld.x3dom.X3DDeltaMessage;
+import cz.a_d.discworld.x3dom.X3DObject;
 import cz.a_d.discworld.x3dom.X3d;
 import cz.a_d.discworld.x3dom.data.X3DAxisVector;
 import cz.a_d.discworld.x3dom.data.apprance.X3DAppearance;
@@ -18,6 +19,7 @@ import cz.a_d.discworld.x3dom.data.model.iterchange.scene.X3DTransform;
 import cz.a_d.discworld.x3dom.exceptions.X3DException;
 import java.io.Serializable;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -26,11 +28,9 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.JAXBIntrospector;
 import javax.xml.bind.Marshaller;
-import javax.xml.namespace.QName;
 
 /**
  *
@@ -75,12 +75,36 @@ public class SceneDataTransferHandler implements Serializable {
             X3DDeltaMessage message = new X3DDeltaMessage("create", cube, parent.getId());
             try {
                 StringWriter result = new StringWriter();
-//                if(null == introspector.getElementName(cube)) {
-//                    JAXBElement jaxbElement = new JAXBElement(new QName("ROOT"), cube.getClass(), cube);
-//                    shapeMarchaller.marshal(jaxbElement, result);
-//                }else{
                 shapeMarchaller.marshal(message, result);
-//                }
+                retValue = result.toString();
+            } catch (JAXBException ex) {
+                Logger.getLogger(SceneDataTransferHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return retValue;
+    }
+
+    public String generateDeltaMessage(String operationType, X3DObject parent, List<X3DObject> objects, boolean justId) {
+        String retValue = null;
+        if (parent != null && objects != null && (!objects.isEmpty())) {
+            List<X3DObject> toProcess = objects;
+            if (justId) {
+                toProcess = new ArrayList<>(objects.size());
+                for (X3DObject original : objects) {
+                    try {
+                        X3DObject tmp= original.getClass().newInstance();
+                        tmp.setId(original.getId());
+                        toProcess.add(tmp);
+                    } catch (InstantiationException | IllegalAccessException ex) {
+                        Logger.getLogger(SceneDataTransferHandler.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+
+            X3DDeltaMessage message = new X3DDeltaMessage(operationType, toProcess, parent.getId());
+            try {
+                StringWriter result = new StringWriter();
+                shapeMarchaller.marshal(message, result);
                 retValue = result.toString();
             } catch (JAXBException ex) {
                 Logger.getLogger(SceneDataTransferHandler.class.getName()).log(Level.SEVERE, null, ex);
@@ -104,7 +128,7 @@ public class SceneDataTransferHandler implements Serializable {
                     X3DTransform created = createCube(scena, cube);
                     if (created != null) {
                         scena.addTransform(created);
-                        if(cache!=null){
+                        if (cache != null) {
                             cache.put(cube, created);
                         }
                     }

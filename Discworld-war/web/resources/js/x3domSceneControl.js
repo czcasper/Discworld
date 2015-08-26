@@ -30,23 +30,18 @@ function updateScene(def) {
                     var addopted = document.adoptNode(data);
                     parent.appendChild(addopted);
                 }
+            } else if (operation === "delete") {
+                var dataArray = message.childNodes;
+                var dataLength = dataArray.length;
+                for (var j = 0; j < dataLength; j++) {
+                    var data = dataArray[j];
+                    var itemId = data.getAttribute('id');
+                    var xmlItem = document.getElementById(itemId);
+                    parent.removeChild(xmlItem);
+                }
             }
 
         }
-//        var ot = document.getElementById('root');
-//        var rootName = doc.firstChild.nodeName.toUpperCase();
-//        if (rootName === "TRANSFORMS") {
-//            var transforms = doc.firstChild;
-//            var childs = transforms.firstChild;
-//            while (childs !== null) {
-//                var addopted = document.adoptNode(childs);
-//                ot.appendChild(addopted);
-//                childs = transforms.firstChild;
-//            }
-//        } else if (rootName === "TRANSFORM") {
-//            var addopted = document.adoptNode(doc.firstChild);
-//            ot.appendChild(addopted);
-//        }
         return true;
     }
     return false;

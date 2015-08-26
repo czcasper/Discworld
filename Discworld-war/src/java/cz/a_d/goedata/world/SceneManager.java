@@ -9,6 +9,7 @@ import cz.a_d.discworld.datamodel.universe.World;
 import cz.a_d.discworld.facades.CubeFacade;
 import cz.a_d.discworld.datamodel.universe.geodata.Cube;
 import cz.a_d.discworld.facades.WorldFacade;
+import cz.a_d.discworld.x3dom.X3DObject;
 import cz.a_d.discworld.x3dom.X3d;
 import cz.a_d.discworld.x3dom.data.model.X3DScene;
 import cz.a_d.discworld.x3dom.data.model.iterchange.scene.X3DTransform;
@@ -16,6 +17,7 @@ import cz.a_d.discworld.x3dom.handler.SceneDataTransferHandler;
 import cz.a_d.exceptions.helpers.SelectableDataList;
 import cz.a_d.goedata.world.util.JsfUtil;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,6 +70,29 @@ public class SceneManager implements Serializable {
     protected List<Cube> selectedCubes;
 
     protected Map<Cube, X3DTransform> cubeToScene;
+
+    protected SelectableDataList<Cube> selectableCubeList;
+
+    /**
+     * Get the value of selectableCubeList
+     *
+     * @return the value of selectableCubeList
+     */
+    public SelectableDataList<Cube> getSelectableCubeList() {
+        if(selectableCubeList==null && getCubes()!=null){
+            selectableCubeList = new SelectableDataList<>(getCubes());
+        }
+        return selectableCubeList;
+    }
+
+    /**
+     * Set the value of selectableCubeList
+     *
+     * @param selectableCubeList new value of selectableCubeList
+     */
+    public void setSelectableCubeList(SelectableDataList<Cube> selectableCubeList) {
+        this.selectableCubeList = selectableCubeList;
+    }
 
     /**
      * Get the value of selectedCubes
@@ -167,6 +192,7 @@ public class SceneManager implements Serializable {
             cubes = null;
             cubeToScene = null;
             selectedCubes = null;
+            selectableCubeList = null;
         }
     }
 
@@ -191,22 +217,24 @@ public class SceneManager implements Serializable {
     }
 
     public void createCube() {
-        cube.setWorld(getWorld());
-        cube.setShadowLevel(getShadowLevel());
-        persistCube(JsfUtil.PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("CubeCreated"));
+        Cube created = new Cube(cube);
+        created.setWorld(getWorld());
+        created.setShadowLevel(getShadowLevel());
+        persistCube(created, JsfUtil.PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("CubeCreated"));
         if (!JsfUtil.isValidationFailed()) {
             selectedCubes = null;
             List<X3DScene> scenes = scene.getScene();
             if (scenes != null && (!scenes.isEmpty())) {
                 X3DScene get = scenes.get(0);
 
-                X3DTransform createCube = dataHandler.createCube(get, cube);
+                X3DTransform createCube = dataHandler.createCube(get, created);
                 String generateDelta = dataHandler.generateDelta(get, createCube);
                 RequestContext requestContext = RequestContext.getCurrentInstance();
                 requestContext.execute(String.format("window.updateScene('%s')", generateDelta));
 
                 get.addTransform(createCube);
-                cubes.add(cube);
+                cubes.add(created);
+                cubeToScene.put(created, createCube);
                 cubeEM.flush();
             }
         }
@@ -223,14 +251,22 @@ public class SceneManager implements Serializable {
                 List<X3DScene> scenes = scene.getScene();
                 if (scenes != null && (!scenes.isEmpty())) {
                     X3DScene get = scenes.get(0);
+
+                    List<X3DObject> transformedCubes = new ArrayList<>(selectedCubes.size());
                     for (Cube select : selectedCubes) {
                         if (cubeToScene.containsKey(select)) {
                             X3DTransform cubeNode = cubeToScene.get(select);
                             if (get.removeTransform(cubeNode)) {
                                 cubeToScene.remove(select);
+                                transformedCubes.add(cubeNode);
                             }
                         }
                     }
+
+                    String generateDelta = dataHandler.generateDeltaMessage("delete", get, transformedCubes, true);
+                    RequestContext requestContext = RequestContext.getCurrentInstance();
+                    requestContext.execute(String.format("window.updateScene('%s')", generateDelta));
+
                 }
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CubeDeleted"));
             } catch (EJBException ex) {
@@ -264,9 +300,9 @@ public class SceneManager implements Serializable {
         return cubes;
     }
 
-    public SelectableDataList<Cube> getSelectableCubes() {
-        return new SelectableDataList<>(getCubes());
-    }
+//    public SelectableDataList<Cube> getSelectableCubes() {
+//        return new SelectableDataList<>(getCubes());
+//    }
 
     public String initializeX3DomScene() {
         String retValue = "";
@@ -286,7 +322,7 @@ public class SceneManager implements Serializable {
         return retValue;
     }
 
-    private void persistCube(JsfUtil.PersistAction persistAction, String successMessage) {
+    private void persistCube(Cube cube,JsfUtil.PersistAction persistAction, String successMessage) {
         if (cube != null) {
             try {
                 if (persistAction == JsfUtil.PersistAction.CREATE) {
