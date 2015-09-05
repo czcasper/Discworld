@@ -3,7 +3,7 @@
 package cz.a_d.discworld.datamodel.universe.geodata;
 
 import cz.a_d.discworld.datamodel.universe.World;
-import cz.a_d.discworld.geodata.Material;
+import cz.a_d.discworld.datamodel.universe.Material;
 import cz.a_d.discworld.geodata.Time;
 import java.io.Serializable;
 import java.util.Objects;

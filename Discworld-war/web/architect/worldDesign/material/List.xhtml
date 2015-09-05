@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/architect/template.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListMaterialTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="left_menubar">
+            <p:commandButton id="createToolBarButton" icon="ui-icon-plus"  title="#{bundle.Create}" actionListener="#{materialController.prepareCreate()}" update=":MaterialListForm" oncomplete="PF('MaterialCreateDialog').show()"/>
+            <span class="ui-separator">
+                <span class="ui-icon ui-icon-grip-dotted-vertical" />
+            </span>
+            <p:commandButton id="viewToolBarButton"   icon="ui-icon-search"  title="#{bundle.View}" update=":MaterialListForm" oncomplete="PF('WorldViewDialog').show()" disabled="#{empty materialController.material}"/>
+            <p:commandButton id="editToolBarButton"   icon="ui-icon-pencil"  title="#{bundle.Edit}" update=":MaterialListForm" oncomplete="PF('WorldEditDialog').show()" disabled="#{empty materialController.material}"/>
+            <p:commandButton id="deleteToolBarButton" icon="ui-icon-trash"   title="#{bundle.Delete}" actionListener="#{materialController.deleteMaterial()}" update=":growl,:MaterialListForm:datalist" disabled="#{empty materialController.selectedMaterials}"/>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="MaterialListForm">
+                <p:panel header="#{bundle.ListMaterialTitle}">
+                    <p:dataTable id="datalist" value="#{materialController.materials}" var="item"
+                                 selectionMode="multiple" selection="#{materialController.selectedMaterials}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update=":toolBar:createToolBarButton :toolBar:viewToolBarButton :toolBar:editToolBarButton :toolBar:deleteToolBarButton "/>
+                        <p:ajax event="rowUnselect" update=":toolBar:createToolBarButton :toolBar:viewToolBarButton :toolBar:editToolBarButton :toolBar:deleteToolBarButton "/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterialTitle_name}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.name}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterialTitle_description}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.description}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterialTitle_creator}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.creator.id}"/>
+                        </p:column>
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterialTitle_color}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.stringColor}" style="color : #{item.stringColor};"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <!--            <ui:include src="Edit.xhtml"/>
+                        <ui:include src="View.xhtml"/>-->
+        </ui:define>
+    </ui:composition>
+
+</html>

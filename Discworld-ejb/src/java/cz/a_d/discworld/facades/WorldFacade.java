@@ -41,7 +41,7 @@ public class WorldFacade extends AbstractFacade<World> {
         Root<Cube> from = delete.from(Cube.class);
         delete.where(criteriaBuilder.equal(from.get(Cube_.world), world));
         em.createQuery(delete).executeUpdate();
-//        em.flush();
         remove(world);
+        em.flush();
     }
 }

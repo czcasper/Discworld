@@ -2,12 +2,10 @@ package cz.a_d.goedata.world;
 
 import cz.a_d.discworld.facades.WorldFacade;
 import cz.a_d.discworld.datamodel.universe.World;
-import cz.a_d.discworld.datamodel.users.User;
 import cz.a_d.goedata.world.util.JsfUtil;
 import cz.a_d.goedata.world.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
-import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -22,7 +20,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.servlet.http.HttpServletRequest;
 
 @ManagedBean(name = "worldController")
 @SessionScoped
@@ -30,14 +27,25 @@ public class WorldController implements Serializable {
 
     @EJB
     private WorldFacade ejbFacade;
-    
+
     @ManagedProperty(value = "#{sceneManager}")
     protected SceneManager sceneManager;
-    
+
+    @ManagedProperty(value = "#{userControler}")
+    protected UserControler controler;
+
     private List<World> items = null;
     private World selected;
 
     public WorldController() {
+    }
+
+    public UserControler getControler() {
+        return controler;
+    }
+
+    public void setControler(UserControler controler) {
+        this.controler = controler;
     }
 
     public SceneManager getSceneManager() {
@@ -60,17 +68,7 @@ public class WorldController implements Serializable {
     }
 
     protected void initializeEmbeddableKey() {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().
-                getExternalContext().getRequest();
-        if (request != null) {
-            Principal userPrincipal = request.getUserPrincipal();
-            if (userPrincipal != null) {
-                User user = new User();
-                user.setId(userPrincipal.getName());
-                selected.setCreator(user);
-            }
-        }
-
+        selected.setCreator(controler.getUser());
     }
 
     private WorldFacade getFacade() {
@@ -106,27 +104,27 @@ public class WorldController implements Serializable {
 
     public void destroyWorld() {
 //        persist(PersistAction.DELETE, );
-            try {
-                getFacade().deleteWord(selected);
-                sceneManager.setWorlds(null);
-                
+        try {
+            getFacade().deleteWord(selected);
+            sceneManager.setWorlds(null);
+
 //                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("WorldDeleted"));
-            } catch (EJBException ex) {
-                String msg = "";
-                Throwable cause = ex.getCause();
-                if (cause != null) {
-                    msg = cause.getLocalizedMessage();
-                }
-                if (msg.length() > 0) {
-                    JsfUtil.addErrorMessage(msg);
-                } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+        } catch (EJBException ex) {
+            String msg = "";
+            Throwable cause = ex.getCause();
+            if (cause != null) {
+                msg = cause.getLocalizedMessage();
+            }
+            if (msg.length() > 0) {
+                JsfUtil.addErrorMessage(msg);
+            } else {
                 JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             }
-        
+        } catch (Exception ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.

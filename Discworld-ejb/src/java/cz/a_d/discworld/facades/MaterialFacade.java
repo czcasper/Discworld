@@ -5,7 +5,7 @@
  */
 package cz.a_d.discworld.facades;
 
-import cz.a_d.discworld.geodata.Material;
+import cz.a_d.discworld.datamodel.universe.Material;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

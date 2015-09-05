@@ -5,11 +5,13 @@
  */
 package cz.a_d.discworld.x3dom.handler;
 
+import cz.a_d.discworld.datamodel.universe.Material;
 import cz.a_d.discworld.datamodel.universe.geodata.Cube;
 import cz.a_d.discworld.x3dom.X3DDeltaMessage;
 import cz.a_d.discworld.x3dom.X3DObject;
 import cz.a_d.discworld.x3dom.X3d;
 import cz.a_d.discworld.x3dom.data.X3DAxisVector;
+import cz.a_d.discworld.x3dom.data.X3DColor;
 import cz.a_d.discworld.x3dom.data.apprance.X3DAppearance;
 import cz.a_d.discworld.x3dom.data.apprance.X3DMaterial;
 import cz.a_d.discworld.x3dom.data.model.X3DScene;
@@ -17,6 +19,7 @@ import cz.a_d.discworld.x3dom.data.model.iterchange.geometry.X3DBox;
 import cz.a_d.discworld.x3dom.data.model.iterchange.scene.X3DShape;
 import cz.a_d.discworld.x3dom.data.model.iterchange.scene.X3DTransform;
 import cz.a_d.discworld.x3dom.exceptions.X3DException;
+import java.awt.Color;
 import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -92,7 +95,7 @@ public class SceneDataTransferHandler implements Serializable {
                 toProcess = new ArrayList<>(objects.size());
                 for (X3DObject original : objects) {
                     try {
-                        X3DObject tmp= original.getClass().newInstance();
+                        X3DObject tmp = original.getClass().newInstance();
                         tmp.setId(original.getId());
                         toProcess.add(tmp);
                     } catch (InstantiationException | IllegalAccessException ex) {
@@ -158,10 +161,19 @@ public class SceneDataTransferHandler implements Serializable {
                 generator.generateID(shape, appearance);
                 shape.setAppearance(appearance);
 
-                X3DMaterial material = new X3DMaterial();
-                generator.generateID(appearance, material);
-                material.setDiffuseColor("0,1,0");
-                appearance.setMaterial(material);
+                Material mat = cube.getMaterial();
+                if (mat != null && (mat.getColor() != null)) {
+                    float color[]=new float[3];
+                    color = mat.getColor().getColorComponents(color);
+                    X3DMaterial material = new X3DMaterial();
+                    generator.generateID(appearance, material);
+                    X3DColor diffuseColor= new X3DColor();
+                    diffuseColor.setR(color[0]);
+                    diffuseColor.setG(color[1]);
+                    diffuseColor.setB(color[2]);
+                    material.setDiffuseColor(diffuseColor);
+                    appearance.setMaterial(material);
+                }
 
                 X3DBox box = new X3DBox();
                 generator.generateID(shape, box);

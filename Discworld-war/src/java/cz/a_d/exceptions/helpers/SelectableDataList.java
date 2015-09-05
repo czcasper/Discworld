@@ -6,7 +6,6 @@
 package cz.a_d.exceptions.helpers;
 
 import java.util.List;
-import java.util.Map;
 import javax.faces.model.ListDataModel;
 import org.primefaces.model.SelectableDataModel;
 

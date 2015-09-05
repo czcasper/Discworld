@@ -24,8 +24,9 @@
                 <h:form id="menuForm">
                     <p:menubar>
                         <p:menuitem value="#{bundle.ArchitectMenuBar_home}" outcome="/index" icon="ui-icon-home"/>
-                        <p:submenu label="#{bundle.ArchitectMenuBar_worldSetup}">
-                            <p:menuitem value="#{bundle.List}" outcome="/architect/world/List.xhtml" />
+                        <p:submenu label="#{bundle.ArchitectMenuBar_WorldSetup}">
+                            <p:menuitem value="#{bundle.ArchitectMenuBar_WorldSetup_Worlds}" outcome="/architect/world/List.xhtml" />
+                            <p:menuitem value="#{bundle.ArchitectMenuBar_WorldSetup_Materials}" outcome="/architect/worldDesign/material/List.xhtml" />
                         </p:submenu>
                         <p:submenu label="#{bundle.ArchitectMenuBar_worldDesign}">
                             <p:menuitem value="#{bundle.Edit}" outcome="/architect/worldDesign/index.xhtml" />

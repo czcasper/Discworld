@@ -25,7 +25,7 @@
             <span class="ui-separator">
                 <span class="ui-icon ui-icon-grip-dotted-vertical" />
             </span>
-            <p:commandButton id="createToolBarButton" icon="ui-icon-plus" title="#{bundle.Create}" update="@form,:CubeDeleteDlg" oncomplete="PF('CubeCreateDialog').show()"/>
+            <p:commandButton id="createToolBarButton" icon="ui-icon-plus" title="#{bundle.Create}" update="@form,:CubeDeleteDlg,deleteToolBarButton" oncomplete="PF('CubeCreateDialog').show()"/>
             <p:commandButton id="deleteToolBarButton" icon="ui-icon-trash" title="#{bundle.Delete}" update="@form" disabled="#{sceneManager.cubes.size()==0}" oncomplete="PF('CubeDeleteDialog').show()"/>
         </ui:define>
 
