@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="CubeCreateDlg" widgetVar="CubeCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CubeCreate_Title}">
+            <h:form id="CubeCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{cubeControler.cube != null}">
+                        <p:outputLabel value="#{bundle.CubeXAxis_Label}" for="xAxis" />
+                        <p:spinner id="xAxis" required="true" value="#{cubeControler.cube.XAxis}" label="#{bundle.CubeWorld_Title}" max="#{sceneManager.maxLong}" min="#{sceneManager.mixLong}">
+                            <f:converter converterId="javax.faces.Long"/>
+                        </p:spinner>
+                        <p:outputLabel value="#{bundle.CubeYAxis_Label}" for="yAxis" />
+                        <p:spinner id="yAxis" value="#{cubeControler.cube.YAxis}" required="true" label="#{bundle.CubeYAxis_Title}" max="#{sceneManager.maxLong}" min="#{sceneManager.mixLong}">
+                            <f:converter converterId="javax.faces.Long"/>
+                        </p:spinner>
+                        <p:outputLabel value="#{bundle.CubeZAxis_Label}" for="zAxis" />
+                        <p:spinner id="zAxis" value="#{cubeControler.cube.ZAxis}" required="true" label="#{bundle.CubeZAxis_Title}" max="#{sceneManager.maxLong}" min="#{sceneManager.mixLong}">
+                            <f:converter converterId="javax.faces.Long"/>
+                        </p:spinner>
+                        <p:outputLabel value="#{bundle.MaterialLabel}" for="material" />
+                        <p:selectOneMenu id="material" value="#{cubeControler.cube.material}" label="#{bundle.MaterialTitle}" converter="materialConverter" >
+                            <f:selectItems value="#{materialController.materials}" var="mat" itemLabel="#{mat.name}" itemValue="#{mat}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cubeControler.create()}" value="#{bundle.Save}" update="display,:growl,:CubeDeleteDlg,:CubeEditDlg" oncomplete="handleSubmit(args,'CubeCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CubeCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+</html>

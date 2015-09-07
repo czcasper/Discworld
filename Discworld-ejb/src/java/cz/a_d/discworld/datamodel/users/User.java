@@ -11,6 +11,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -25,6 +26,51 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "creator")
     protected List<World> worlds;
+
+    @OneToMany(mappedBy = "user")
+    protected List<Configuration> configurations;
+
+    @OneToOne
+    protected Configuration defaultConfiguration;
+
+    /**
+     * Get the value of defaultConfiguration
+     *
+     * @return the value of defaultConfiguration
+     */
+    public Configuration getDefaultConfiguration() {
+        if (defaultConfiguration == null && (configurations != null) && (!configurations.isEmpty())) {
+            defaultConfiguration = configurations.get(0);
+        }
+        return defaultConfiguration;
+    }
+
+    /**
+     * Set the value of defaultConfiguration
+     *
+     * @param defaultConfiguration new value of defaultConfiguration
+     */
+    public void setDefaultConfiguration(Configuration defaultConfiguration) {
+        this.defaultConfiguration = defaultConfiguration;
+    }
+
+    /**
+     * Get the value of configurations
+     *
+     * @return the value of configurations
+     */
+    public List<Configuration> getConfigurations() {
+        return configurations;
+    }
+
+    /**
+     * Set the value of configurations
+     *
+     * @param configurations new value of configurations
+     */
+    public void setConfigurations(List<Configuration> configurations) {
+        this.configurations = configurations;
+    }
 
     /**
      * Get the value of worlds

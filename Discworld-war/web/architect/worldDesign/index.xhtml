@@ -14,32 +14,35 @@
         </ui:define>
 
         <ui:define name="left_menubar">
-            <p:selectOneMenu id="world" value="#{sceneManager.world}" label="#{bundle.WorldTitle}">
-                <p:ajax process="@this" listener="#{sceneManager.onWorldChange()}" update="@form,:workspaceForm,:CubeDeleteDlg" oncomplete="x3dom.reload()"/>                    
-                <f:selectItems value="#{sceneManager.worldsDropDownData}" />
+            <p:selectOneMenu id="world" value="#{cubeControler.world}" label="#{bundle.WorldTitle}" converter="worldConvertor">
+                <p:ajax process="@this" update="@form,:workspaceForm,:CubeDeleteDlg,:CubeListDlg" oncomplete="x3dom.reload()"/>                    
+                <f:selectItems value="#{worldController.items}" var="world" itemValue="#{world}" itemLabel="#{world.name}" />
             </p:selectOneMenu>
-            <p:spinner value="#{sceneManager.shadowLevel}" title="#{bundle.ShadowTitle}">
-                <p:ajax listener="#{sceneManager.onWorldChange()}" update="@form,:workspaceForm,:CubeDeleteDlg" oncomplete="x3dom.reload()"/>                    
+            <p:spinner value="#{cubeControler.shadow}" title="#{bundle.ShadowTitle}">
+                <p:ajax update="@form,:workspaceForm,:CubeDeleteDlg,:CubeListDlg" oncomplete="x3dom.reload()"/>                    
                 <!--<f:converter converterId="javax.faces.Long"/>-->
             </p:spinner>
             <span class="ui-separator">
                 <span class="ui-icon ui-icon-grip-dotted-vertical" />
             </span>
-            <p:commandButton id="createToolBarButton" icon="ui-icon-plus" title="#{bundle.Create}" update="@form,:CubeDeleteDlg,deleteToolBarButton" oncomplete="PF('CubeCreateDialog').show()"/>
-            <p:commandButton id="deleteToolBarButton" icon="ui-icon-trash" title="#{bundle.Delete}" update="@form" disabled="#{sceneManager.cubes.size()==0}" oncomplete="PF('CubeDeleteDialog').show()"/>
+            <p:commandButton id="createToolBarButton" actionListener="#{cubeControler.prepareCreate()}" icon="ui-icon-plus" title="#{bundle.Create}" update="@form,:CubeDeleteDlg,deleteToolBarButton,:CubeCreateDlg,:CubeListDlg" oncomplete="PF('CubeCreateDialog').show()"/>
+            <p:commandButton id="editToolBarButton"   icon="ui-icon-pencil"  title="#{bundle.Edit}" update="@form" oncomplete="PF('CubeListDialog').show()" />
+
+            <p:commandButton id="deleteToolBarButton" icon="ui-icon-trash" title="#{bundle.Delete}" update="@form" disabled="#{empty cubeControler.cubes}" oncomplete="PF('CubeDeleteDialog').show()"/>
         </ui:define>
 
 
         <ui:define name="body">
             <!--<button onclick="x3dom.reload()">Click me</button>--> 
             <h:form id="workspaceForm">
-                <h:outputText escape="false" value="#{sceneManager.initializeX3DomScene()}" />
+                <h:outputText escape="false" value="#{cubeControler.printCurrentScene()}" />
             </h:form>
 
-            <ui:include src="createCube.xhtml"/>
-            <ui:include src="deleteCube.xhtml"/>
-            <!--                        <ui:include src="Edit.xhtml"/>
-                                    <ui:include src="View.xhtml"/>-->
+            <ui:include src="cube/Create.xhtml"/>
+            <ui:include src="cube/Delete.xhtml"/>
+            <ui:include src="cube/Edit.xhtml"/>
+            <ui:include src="cube/List.xhtml"/>
+            <!--<ui:include src="View.xhtml"/>-->
         </ui:define>
     </ui:composition>
 

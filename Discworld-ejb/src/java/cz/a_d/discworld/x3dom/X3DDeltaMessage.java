@@ -6,7 +6,6 @@
 package cz.a_d.discworld.x3dom;
 
 import cz.a_d.discworld.x3dom.data.model.iterchange.scene.X3DTransform;
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXBElement;

@@ -8,12 +8,16 @@ package cz.a_d.discworld.facades;
 import cz.a_d.discworld.datamodel.universe.World;
 import cz.a_d.discworld.datamodel.universe.geodata.Cube;
 import cz.a_d.discworld.datamodel.universe.geodata.Cube_;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 /**
@@ -31,17 +35,33 @@ public class WorldFacade extends AbstractFacade<World> {
         return em;
     }
 
+    @PostConstruct
+    public void initCriteriaBuilder() {
+        criteriaBuilder = em.getCriteriaBuilder();
+    }
+
     public WorldFacade() {
         super(World.class);
     }
 
     public void deleteWord(World world) throws EJBException {
-        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaDelete<Cube> delete = criteriaBuilder.createCriteriaDelete(Cube.class);
         Root<Cube> from = delete.from(Cube.class);
         delete.where(criteriaBuilder.equal(from.get(Cube_.world), world));
         em.createQuery(delete).executeUpdate();
         remove(world);
         em.flush();
+    }
+
+    public World getFirstWorld() {
+        World retValue = null;
+        CriteriaQuery<World> query = criteriaBuilder.createQuery(World.class);
+        query.select(query.from(World.class));
+        try {
+            retValue = em.createQuery(query).getSingleResult();
+        } catch (NoResultException ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "No record in World data found", ex);
+        }
+        return retValue;
     }
 }

@@ -23,6 +23,7 @@ import java.awt.Color;
 import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -42,9 +43,6 @@ import javax.xml.bind.Marshaller;
 @Stateless
 @LocalBean
 public class SceneDataTransferHandler implements Serializable {
-
-    @EJB
-    protected X3DElementIDGenerator generator;
 
     protected Marshaller marshaller;
     protected Marshaller shapeMarchaller;
@@ -86,8 +84,16 @@ public class SceneDataTransferHandler implements Serializable {
         }
         return retValue;
     }
+    
+    public String generateDeltaMessage(String operationType, X3DObject parent,X3DObject ... objects){
+        return generateDeltaMessage(operationType, parent, false, Arrays.asList(objects));
+    }
 
-    public String generateDeltaMessage(String operationType, X3DObject parent, List<X3DObject> objects, boolean justId) {
+    public String generateDeltaMessage(String operationType, X3DObject parent,boolean justId,X3DObject ... objects){
+        return generateDeltaMessage(operationType, parent, justId, Arrays.asList(objects));
+    }
+
+    public <T extends X3DObject> String generateDeltaMessage(String operationType, T parent, boolean justId, List<X3DObject> objects) {
         String retValue = null;
         if (parent != null && objects != null && (!objects.isEmpty())) {
             List<X3DObject> toProcess = objects;
@@ -113,78 +119,6 @@ public class SceneDataTransferHandler implements Serializable {
                 Logger.getLogger(SceneDataTransferHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return retValue;
-    }
-
-    public X3d createScene(List<Cube> cubes, String id, Map<Cube, X3DTransform> cache) {
-        X3d retValue = null;
-        if (cubes != null) {
-            retValue = new X3d();
-            retValue.setId(id);
-            retValue.setHeight("450px");
-            retValue.setWidth("1200px");
-            X3DScene scena = new X3DScene();
-            retValue.addScene(scena);
-            generator.generateID(retValue, scena);
-            if (!cubes.isEmpty()) {
-                for (Cube cube : cubes) {
-                    X3DTransform created = createCube(scena, cube);
-                    if (created != null) {
-                        scena.addTransform(created);
-                        if (cache != null) {
-                            cache.put(cube, created);
-                        }
-                    }
-                }
-            }
-        }
-        return retValue;
-    }
-
-    public X3DTransform createCube(X3DScene parent, Cube cube) {
-        X3DTransform retValue = null;
-        if (parent != null && cube != null) {
-            try {
-                retValue = new X3DTransform();
-                generator.generateID(parent, retValue);
-                X3DAxisVector position = new X3DAxisVector();
-                position.setX(cube.getXAxis());
-                position.setY(cube.getYAxis());
-                position.setZ(cube.getZAxis());
-                retValue.setTranslation(position);
-
-                X3DShape shape = new X3DShape();
-                generator.generateID(retValue, shape);
-                retValue.setShape(shape);
-
-                X3DAppearance appearance = new X3DAppearance();
-                generator.generateID(shape, appearance);
-                shape.setAppearance(appearance);
-
-                Material mat = cube.getMaterial();
-                if (mat != null && (mat.getColor() != null)) {
-                    float color[]=new float[3];
-                    color = mat.getColor().getColorComponents(color);
-                    X3DMaterial material = new X3DMaterial();
-                    generator.generateID(appearance, material);
-                    X3DColor diffuseColor= new X3DColor();
-                    diffuseColor.setR(color[0]);
-                    diffuseColor.setG(color[1]);
-                    diffuseColor.setB(color[2]);
-                    material.setDiffuseColor(diffuseColor);
-                    appearance.setMaterial(material);
-                }
-
-                X3DBox box = new X3DBox();
-                generator.generateID(shape, box);
-                box.setSize("1.0,1.0,1.0");
-                shape.addBox(box);
-
-            } catch (X3DException ex) {
-                Logger.getLogger(SceneDataTransferHandler.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
         return retValue;
     }
 }

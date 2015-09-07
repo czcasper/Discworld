@@ -22,10 +22,10 @@ import javax.servlet.http.HttpServletRequest;
 @ManagedBean
 @SessionScoped
 public class UserControler implements Serializable {
-
+    
     @EJB
     protected UserFascade em;
-
+    
     protected User user;
 
     /**
@@ -45,10 +45,16 @@ public class UserControler implements Serializable {
                         user = new User();
                         user.setId(userPrincipal.getName());
                         em.create(user);
+                        em.initializeUserDefaults(user);
                         em.flush();
                     }
                 }
             }
+        }
+        if (user.getDefaultConfiguration() == null) {
+            em.initializeUserDefaults(user);
+        } else {
+            em.validateDefaultConfiguration(user);
         }
         return user;
     }
@@ -58,5 +64,5 @@ public class UserControler implements Serializable {
      */
     public UserControler() {
     }
-
+    
 }

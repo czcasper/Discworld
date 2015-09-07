@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author casper
  */
-@XmlType
+@XmlType(name = "material")
 @XmlAccessorType(XmlAccessType.NONE)
 public class X3DMaterial extends X3DObject {
 

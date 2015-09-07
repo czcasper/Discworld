@@ -28,7 +28,6 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.model.ListDataModel;
 import javax.xml.bind.JAXBException;
 import org.primefaces.context.RequestContext;
 
@@ -221,23 +220,23 @@ public class SceneManager implements Serializable {
         created.setWorld(getWorld());
         created.setShadowLevel(getShadowLevel());
         persistCube(created, JsfUtil.PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("CubeCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            selectedCubes = null;
-            List<X3DScene> scenes = scene.getScene();
-            if (scenes != null && (!scenes.isEmpty())) {
-                X3DScene get = scenes.get(0);
-
-                X3DTransform createCube = dataHandler.createCube(get, created);
-                String generateDelta = dataHandler.generateDelta(get, createCube);
-                RequestContext requestContext = RequestContext.getCurrentInstance();
-                requestContext.execute(String.format("window.updateScene('%s')", generateDelta));
-
-                get.addTransform(createCube);
-                cubes.add(created);
-                cubeToScene.put(created, createCube);
-                cubeEM.flush();
-            }
-        }
+//        if (!JsfUtil.isValidationFailed()) {
+//            selectedCubes = null;
+//            List<X3DScene> scenes = scene.getScene();
+//            if (scenes != null && (!scenes.isEmpty())) {
+//                X3DScene get = scenes.get(0);
+//
+//                X3DTransform createCube = dataHandler.createCube(get, created);
+//                String generateDelta = dataHandler.generateDelta(get, createCube);
+//                RequestContext requestContext = RequestContext.getCurrentInstance();
+//                requestContext.execute(String.format("window.updateScene('%s')", generateDelta));
+//
+//                get.addTransform(createCube);
+//                cubes.add(created);
+//                cubeToScene.put(created, createCube);
+//                cubeEM.flush();
+//            }
+//        }
 
     }
 
@@ -263,9 +262,9 @@ public class SceneManager implements Serializable {
                         }
                     }
 
-                    String generateDelta = dataHandler.generateDeltaMessage("delete", get, transformedCubes, true);
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.execute(String.format("window.updateScene('%s')", generateDelta));
+//                    String generateDelta = dataHandler.generateDeltaMessage("delete", get, transformedCubes, true);
+//                    RequestContext requestContext = RequestContext.getCurrentInstance();
+//                    requestContext.execute(String.format("window.updateScene('%s')", generateDelta));
 
                 }
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CubeDeleted"));
@@ -306,19 +305,19 @@ public class SceneManager implements Serializable {
 
     public String initializeX3DomScene() {
         String retValue = "";
-        if (cubeToScene == null) {
-            cubeToScene = new HashMap<>();
-        } else {
-            cubeToScene.clear();
-        }
-        scene = dataHandler.createScene(getCubes(), "mainWorkSpace", cubeToScene);
-        if (scene != null) {
-            try {
-                retValue = dataHandler.convert(scene);
-            } catch (JAXBException ex) {
-                Logger.getLogger(SceneManager.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+//        if (cubeToScene == null) {
+//            cubeToScene = new HashMap<>();
+//        } else {
+//            cubeToScene.clear();
+//        }
+//        scene = dataHandler.createScene(getCubes(), "mainWorkSpace", cubeToScene);
+//        if (scene != null) {
+//            try {
+//                retValue = dataHandler.convert(scene);
+//            } catch (JAXBException ex) {
+//                Logger.getLogger(SceneManager.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
         return retValue;
     }
 

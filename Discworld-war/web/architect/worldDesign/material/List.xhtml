@@ -13,7 +13,7 @@
         </ui:define>
 
         <ui:define name="left_menubar">
-            <p:commandButton id="createToolBarButton" icon="ui-icon-plus"  title="#{bundle.Create}" actionListener="#{materialController.prepareCreate()}" update=":MaterialListForm" oncomplete="PF('MaterialCreateDialog').show()"/>
+            <p:commandButton id="createToolBarButton" icon="ui-icon-plus"  title="#{bundle.Create}" actionListener="#{materialController.prepareCreate()}" update=":MaterialListForm,:MaterialCreateDlg" oncomplete="PF('MaterialCreateDialog').show()"/>
             <span class="ui-separator">
                 <span class="ui-icon ui-icon-grip-dotted-vertical" />
             </span>

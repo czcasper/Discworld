@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition>
+        <p:dialog id="CubeListDlg" widgetVar="CubeListDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CubeEdit_Title}">
+            <h:form id="CubeListForm">
+                <h:panelGroup id="CubeListDisplay" >
+                    <p:panelGrid columns="2" rendered="#{not empty cubeControler.cubes}">
+                        <p:dataTable id="cubeDataTable" var="cube" value="#{cubeControler.cubes}" rowKey="#{cube.stringKey}"
+                                     rows="10" selectionMode="multiple" selection="#{cubeControler.selectedCubes}" paginator="true">
+                            <f:facet name="header">
+                                #{bundle.CubeOnSceneTile}
+                            </f:facet>
+                            <p:column headerText="#{bundle.CubeXAxis_Title}">
+                                <h:outputText value="#{cube.XAxis}" />
+                            </p:column>
+                            <p:column headerText="#{bundle.CubeYAxis_Title}">
+                                <h:outputText value="#{cube.YAxis}" />
+                            </p:column>
+                            <p:column headerText="#{bundle.CubeZAxis_Title}">
+                                <h:outputText value="#{cube.ZAxis}" />
+                            </p:column>
+                            <p:column headerText="#{bundle.CubeShadow_Title}">
+                                <h:outputText value="#{cube.shadowLevel}" />
+                            </p:column>
+                            <p:column headerText="#{bundle.CubeWorld_Title}">
+                                <h:outputText value="#{cube.world.name}" />
+                            </p:column>
+                            <p:column headerText="#{bundle.CubeMaterial_Title}">
+                                <h:outputText value="#{cube.material.name}" style="color : #{cube.material.stringColor};"/>
+                            </p:column>
+                            <p:column headerText="#{bundle.CubeEditOperations_Title}">
+                                <p:commandButton icon="ui-icon-pencil" title="#{bundle.Edit}" update=":CubeEditDlg" actionListener="#{cubeControler.prepareEdit(cube)}" oncomplete="PF('CubeEditDialog').show()"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panelGrid>                    
+                    <p:commandButton actionListener="#{cubeControler.delete()}" value="#{bundle.Delete}" />
+                    <p:commandButton value="#{bundle.Close}" onclick="CubeListDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+</html>
+

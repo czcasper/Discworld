@@ -7,9 +7,6 @@ package cz.a_d.discworld.facades;
 
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceException;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 
 /**
@@ -18,6 +15,7 @@ import javax.persistence.criteria.CriteriaBuilder;
  */
 public abstract class AbstractFacade<T> {
     private Class<T> entityClass;
+    protected CriteriaBuilder criteriaBuilder;
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CubeEditDlg" widgetVar="CubeEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCubeTitle}">
+            <h:form id="CubeEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{not empty cubeControler.cube}">
+                        <p:outputLabel value="#{bundle.CubeXAxis_Label}" for="editCubeXaxis" />
+                        <p:inputText id="editCubeXaxis" value="#{cubeControler.cube.XAxis}" title="#{bundle.CubeXAxis_Title}" />
+                        <p:outputLabel value="#{bundle.CubeYAxis_Label}" for="editCubeYaxis" />
+                        <p:inputText id="editCubeYaxis" value="#{cubeControler.cube.YAxis}" title="#{bundle.CubeYAxis_Title}" />
+                        <p:outputLabel value="#{bundle.CubeZAxis_Label}" for="editCubeZaxis" />
+                        <p:inputText id="editCubeZaxis" value="#{cubeControler.cube.ZAxis}" title="#{bundle.CubeZAxis_Title}" />
+                        <p:outputLabel value="#{bundle.CubeShadow_Label}" for="editCubeShadow" />
+                        <p:inputText id="editCubeShadow" value="#{cubeControler.cube.shadowLevel}" title="#{bundle.CubeShadow_Title}" />
+                        <p:outputLabel value="#{bundle.CubeWorld_Label}" for="editCubeWorld" />
+                        <p:selectOneMenu id="editCubeWorld" label="#{bundle.CubeWorld_Title}" value="#{cubeControler.cube.world}" converter="worldConvertor">
+                            <p:ajax process="@this" update="@form"/>                    
+                            <f:selectItems value="#{worldController.items}" var="world" itemValue="#{world}" itemLabel="#{world.name}" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CubeMaterial_Label}" for="editCubeMaterial" />
+                        <p:selectOneMenu id="editCubeMaterial" value="#{cubeControler.cube.material}" label="#{bundle.CubeMaterial_Title}" converter="materialConverter" >
+                            <f:selectItems value="#{materialController.materials}" var="mat" itemLabel="#{mat.name}" itemValue="#{mat}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cubeControler.edit()}" value="#{bundle.Save}" update="display,:growl,:CubeListDlg" oncomplete="handleSubmit(args, 'CubeEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CubeEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

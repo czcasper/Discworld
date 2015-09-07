@@ -5,6 +5,7 @@ package cz.a_d.discworld.datamodel.universe;
 import cz.a_d.discworld.datamodel.users.User;
 import java.awt.Color;
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -126,27 +127,27 @@ public class Material implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 5;
+        hash = 59 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Material)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Material other = (Material) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        return true;
+        final Material other = (Material) obj;
+        return Objects.equals(this.id, other.id);
     }
 
     @Override
     public String toString() {
-        return "cz.a_d.discoworld.geodata.Material[ id=" + id + " ]";
+        return "Material{" + "id=" + id + ", color=" + color + ", name=" + name + ", creator=" + creator + ", description=" + description + '}';
     }
+
 
 }

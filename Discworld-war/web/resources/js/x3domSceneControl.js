@@ -11,6 +11,27 @@ function findX3DElements() {
     // TODO dynamic size detection
 }
 
+function mergeNodes(original, newdata) {
+    for (var i = 0; i < newdata.attributes.length; i++) {
+        var attrib = newdata.attributes[i];
+        original.setAttribute(attrib.nodeName, attrib.nodeValue);
+    }
+
+    for (var i = 0; i < newdata.childNodes.length; i++) {
+        var data = newdata.childNodes[i];
+        var itemId = data.getAttribute('id');
+        var xmlItem = document.getElementById(itemId);
+        if (xmlItem !== null) {
+            mergeNodes(xmlItem, data);
+        } else {
+            var addopted = document.adoptNode(data);
+            xmlItem.appendChild(addopted);
+        }
+    }
+
+
+}
+
 function updateScene(def) {
     var doc = parser.parseFromString(def, "text/xml");
     var deltaMessages = doc.getElementsByTagName("x3dDelta");
@@ -39,29 +60,24 @@ function updateScene(def) {
                     var xmlItem = document.getElementById(itemId);
                     parent.removeChild(xmlItem);
                 }
+            } else if (operation === "update") {
+                var dataArray = message.childNodes;
+                var dataLength = dataArray.length;
+                for (var j = 0; j < dataLength; j++) {
+                    var data = dataArray[j];
+                    var itemId = data.getAttribute('id');
+                    var xmlItem = document.getElementById(itemId);
+                    if (xmlItem !== null) {
+                        mergeNodes(xmlItem, data);
+                    } else {
+                        var addopted = document.adoptNode(data);
+                        xmlItem.appendChild(addopted);
+                    }
+                }
             }
 
         }
         return true;
     }
     return false;
-}
-
-function removeNode()
-{
-    var ot = document.getElementById('root');
-    for (var i = 0; i < ot.childNodes.length; i++) {
-        // check if we have a real X3DOM Node; not just e.g. a Text-tag
-        if (ot.childNodes[i].nodeType === Node.ELEMENT_NODE) {
-            ot.removeChild(ot.childNodes[i]);
-            break;
-        }
-    }
-
-    return false;
-}
-
-function handleCubeClick(cube)
-{
-
 }

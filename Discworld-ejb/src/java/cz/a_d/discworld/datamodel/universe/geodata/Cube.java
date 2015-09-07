@@ -79,6 +79,53 @@ public class Cube implements Serializable {
         this.subCubeDefinition = subCubeDefinition;
     }
 
+    public boolean isPositionEqual(Cube c) {
+        boolean retValue = false;
+        if (c != null) {
+            if (xAxis != null && xAxis.equals(c.xAxis)
+                    && (yAxis != null && yAxis.equals(c.yAxis))
+                    && (zAxis != null && zAxis.equals(c.zAxis))) {
+                retValue = isSameUniverse(c);
+            }
+        }
+        return retValue;
+    }
+
+    public boolean isSameUniverse(Cube c) {
+        boolean retValue = false;
+        if ((c != null) && (shadowLevel != null) && (shadowLevel.equals(c.shadowLevel))
+                && (world != null) && (world.equals(c.world))) {
+            retValue = true;
+        }
+
+        return retValue;
+    }
+
+    /**
+     * Get the value of stringKey
+     *
+     * @return the value of stringKey
+     */
+    public String getStringKey() {
+        String retValue = "";
+        if (xAxis != null) {
+            retValue += xAxis.toString();
+        }
+        if (yAxis != null) {
+            retValue += yAxis.toString();
+        }
+        if (zAxis != null) {
+            retValue += zAxis.toString();
+        }
+        if (shadowLevel != null) {
+            retValue += shadowLevel.toString();
+        }
+        if (world != null) {
+            retValue += world.getId().toString();
+        }
+        return retValue;
+    }
+
     /**
      * Get the value of world
      *
@@ -207,15 +254,12 @@ public class Cube implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 73 * hash + Objects.hashCode(this.xAxis);
-        hash = 73 * hash + Objects.hashCode(this.yAxis);
-        hash = 73 * hash + Objects.hashCode(this.zAxis);
-        hash = 73 * hash + Objects.hashCode(this.shadowLevel);
-        hash = 73 * hash + Objects.hashCode(this.world);
-        hash = 73 * hash + Objects.hashCode(this.material);
-        hash = 73 * hash + Objects.hashCode(this.time);
-        hash = 73 * hash + Objects.hashCode(this.subCubeDefinition);
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.xAxis);
+        hash = 23 * hash + Objects.hashCode(this.yAxis);
+        hash = 23 * hash + Objects.hashCode(this.zAxis);
+        hash = 23 * hash + Objects.hashCode(this.shadowLevel);
+        hash = 23 * hash + Objects.hashCode(this.world);
         return hash;
     }
 
@@ -243,16 +287,8 @@ public class Cube implements Serializable {
         if (!Objects.equals(this.world, other.world)) {
             return false;
         }
-        if (!Objects.equals(this.material, other.material)) {
-            return false;
-        }
-        if (!Objects.equals(this.time, other.time)) {
-            return false;
-        }
-        if (!Objects.equals(this.subCubeDefinition, other.subCubeDefinition)) {
-            return false;
-        }
         return true;
-    }    
-    
+    }
+
+
 }
