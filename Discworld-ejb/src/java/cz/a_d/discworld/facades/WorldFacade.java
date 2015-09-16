@@ -8,6 +8,7 @@ package cz.a_d.discworld.facades;
 import cz.a_d.discworld.datamodel.universe.World;
 import cz.a_d.discworld.datamodel.universe.geodata.Cube;
 import cz.a_d.discworld.datamodel.universe.geodata.Cube_;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -58,7 +59,10 @@ public class WorldFacade extends AbstractFacade<World> {
         CriteriaQuery<World> query = criteriaBuilder.createQuery(World.class);
         query.select(query.from(World.class));
         try {
-            retValue = em.createQuery(query).getSingleResult();
+            List<World> resultList = em.createQuery(query).setMaxResults(1).getResultList();
+            if(resultList!=null &&(!resultList.isEmpty())){
+                retValue = resultList.get(0);
+            }
         } catch (NoResultException ex) {
             Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "No record in World data found", ex);
         }
